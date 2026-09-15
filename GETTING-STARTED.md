@@ -37,11 +37,13 @@ npm test
 
 ## Hosting and domain
 
-The website is hosted on Sites, with fillout.work as its custom domain and Namecheap as its domain registrar. Having these files does not grant account access: publishing to the existing site requires authorization through its owner's Sites account. An assistant with Sites access should use the existing project ID in `hosting-backup/hosting.json`. In a Sites working copy, place that file at `.openai/hosting.json`.
+Publish directory: `dist/`.
 
-The website can also be moved to another static hosting provider using `dist` as the publish directory. Test the pages and wallet connection at the new address before changing DNS in Namecheap. HTTPS is required. Pushing to this GitHub repository does not automatically publish the live website.
+Domain and DNS are managed outside this repository. Pushing to GitHub does not deploy the live site.
 
-## Scope and limitations
+Do not commit hosting project IDs, registrar logins, or wallet keys.
+
+The site can be moved to another static host by publishing `dist/`. Test pages and wallet connection on the new URL before changing DNS. HTTPS is required.
 
 Contracts remain on the blockchain when the website moves; moving files does not remove or redeploy them. Four Solidity source files recovered from the preparation kit are included in `contracts/src`. They compiled successfully, but equivalence to the deployed bytecode and the original Remix deployment settings remain unverified. See [the contract source guide](contracts/README.md).
 
