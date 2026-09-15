@@ -1,11 +1,7 @@
-{
-  "name": "fillout",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "engines": { "node": ">=22" },
-  "scripts": {
-    "start": "node scripts/serve.mjs",
-    "test": "node scripts/check.mjs && node test-engine.mjs"
-  }
-}
+All rights reserved.
+Copyright (c) 2026 FillOut.
+
+This repository is made public for inspection only.
+No license is granted to copy, modify, distribute, or use the
+software or the associated contract addresses, except to view
+the source.
