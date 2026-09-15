@@ -38,7 +38,7 @@ The live website is hosted on Sites. This repository is a source snapshot and de
 
 ## Contracts and source status
 
-See [contract references](docs/contracts.md). Solidity source and verified deployment build artifacts are not included in the available project checkout. Their absence must not be mistaken for contract verification or an audit. Add the exact deployed sources and compiler settings before claiming reproducible smart-contract builds.
+See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. Their equivalence to mainnet bytecode and exact Remix deployment settings remain unverified. Compilation is not a security audit.
 
 Creating a circuit NFT permanently locks the required parts in the selected collection's circuit contract. Browser drafts are stored locally and should be exported for backup.
 

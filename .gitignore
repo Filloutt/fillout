@@ -8,3 +8,4 @@ node_modules/
 .sites-runtime/
 .openai/
 dist/.openai/
+contracts/artifacts/

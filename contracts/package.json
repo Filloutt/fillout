@@ -1,0 +1,6 @@
+{
+  "name": "fillout-contract-sources",
+  "private": true,
+  "scripts": { "compile": "node compile.cjs" },
+  "devDependencies": { "solc": "0.8.26", "@openzeppelin/contracts": "5.6.1" }
+}

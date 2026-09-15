@@ -1,0 +1,11 @@
+const fs=require('node:fs');
+const path=require('node:path');
+const solc=require('solc');
+const sources=Object.fromEntries(fs.readdirSync(path.join(__dirname,'src')).filter(f=>f.endsWith('.sol')).map(f=>[f,{content:fs.readFileSync(path.join(__dirname,'src',f),'utf8')}]));
+const input={language:'Solidity',sources,settings:{optimizer:{enabled:true,runs:200},evmVersion:'cancun',outputSelection:{'*':{'*':['abi','evm.bytecode.object','evm.deployedBytecode.object']}}}};
+const output=JSON.parse(solc.compile(JSON.stringify(input),{import:name=>{try{if(!name.startsWith('@openzeppelin/contracts/'))throw Error('Unsupported import');return {contents:fs.readFileSync(require.resolve(name),'utf8')};}catch(e){return {error:e.message};}}}));
+for(const error of output.errors||[])console.error(error.formattedMessage);
+if((output.errors||[]).some(e=>e.severity==='error'))process.exit(1);
+const target=path.join(__dirname,'artifacts');fs.mkdirSync(target,{recursive:true});
+for(const file of Object.keys(sources))for(const [name,artifact]of Object.entries(output.contracts[file]))fs.writeFileSync(path.join(target,name+'.json'),JSON.stringify({contractName:name,sourceName:file,compiler:solc.version(),validationBuildOnly:true,...artifact},null,2));
+console.log('Compiled four contract source files. This does not verify mainnet bytecode.');

@@ -22,4 +22,4 @@ Quote is ERC-1155 token ID 0; Settle is ID 1. OpenBook caps: 78,261 Quote and 21
 
 The UI reads live caps and minted counts from contracts. The copied config still contains legacy 50,000/50,000 values in its root `tokenomics` metadata; these are not the deployed OpenBook caps. Preserve this distinction when changing configuration. The source snapshot is kept faithful to the published application.
 
-No Solidity source is supplied in this snapshot. Obtain the exact deployed sources and compiler settings from the original Remix workspace before attempting contract maintenance.
+Solidity sources recovered from the preparation kit are now included under `contracts/src`. See `contracts/README.md` for validation compiler settings and outstanding mainnet verification work. Original Remix build metadata is still required to establish deployment equivalence.

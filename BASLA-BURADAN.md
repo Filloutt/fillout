@@ -41,7 +41,7 @@ Başka bir statik barındırmaya geçilebilir: `dist` klasörü yayın kökü ol
 
 ## Bu paketin sınırları
 
-Kontratlar blokzincirde kalır; siteyi taşıma işlemi onları silmez veya yeniden dağıtmaz. Bu yedek Solidity kaynaklarını, derleyici ayarlarını veya bağımsız kontrat denetimini içermez. Bunlar eldeki site klasöründe bulunmuyordu. Kontrat değişikliği yapılacaksa Remix'teki gerçek kaynakları ayrıca dışa aktar.
+Kontratlar blokzincirde kalır; siteyi taşıma işlemi onları silmez veya yeniden dağıtmaz. Hazırlık paketinden bulunan dört Solidity kaynağı artık contracts/src klasöründe. Derleme kontrolü geçti; canlı kontratlarla birebir eşleşme ve Remix'teki gerçek dağıtım ayarları henüz doğrulanmadı. Ayrıntılar contracts/README.md dosyasında.
 
 Cüzdan anahtarları, kurtarma kelimeleri, hesap şifreleri ve yayın erişim anahtarları pakete dahil değildir. Bunları AI sohbetine gönderme.
 
