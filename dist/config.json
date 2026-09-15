@@ -1,0 +1,35 @@
+{
+  "brand": "FillOut",
+  "chainId": 4663,
+  "chainName": "Robinhood Chain",
+  "rpcUrl": "https://rpc.mainnet.chain.robinhood.com",
+  "explorerUrl": "https://robinhoodchain.blockscout.com",
+  "partsAddress": "0xcAEacd999E09524A47CC790cc2AA65148DA2C484",
+  "circuitsAddress": "0xd57Ad2d8AD81606Bd529D483EAfd50CdaA912ddE",
+  "deploymentBlock": null,
+  "mintEnabled": true,
+  "mode": "mainnet-deployed-active-ownership",
+  "deskAddress": "0x71893bc051D74c521D6E9F3464cc6c155294e735",
+  "marketAddress": "0x9CD6694A2247243FABA441B1c434D0443318395e",
+  "nativeSymbol": "ETH",
+  "tokenomics": {
+    "sharedSupply": 100000,
+    "quoteSupply": 50000,
+    "settleSupply": 50000,
+    "ethReferenceUsd": 2500,
+    "unitMintPriceUsd": 0.5,
+    "unitMintPriceEth": "0.0002",
+    "feeModel": "network_estimate_plus_equal_platform_fee",
+    "platformFeeMultiplier": 1,
+    "feeNote": "Platform fee equals the live estimated network fee; total surcharge is 2x the network estimate."
+  },
+  "partsSelector": "b47e9c79",
+  "fillout": {
+    "partsAddress": "0x700d8b2c19225CA05E3B0a7840ccEBfa0CC2D1E0",
+    "circuitsAddress": "0x1cc873CC2b86536aEdE951e54D2aDA6154018d95",
+    "deskAddress": "0x1295c70dAE7B792368dbaC5a95D22B1eBD37086d",
+    "marketAddress": "0x3541B64787F90930b2664551cb572a1717fB965B",
+    "quoteSupply": 31304,
+    "settleSupply": 8696
+  }
+}

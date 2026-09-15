@@ -1,0 +1,11 @@
+{
+  "name": "fillout",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node scripts/check.mjs && node test-engine.mjs"
+  }
+}
