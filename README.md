@@ -46,4 +46,9 @@ Creating a circuit NFT permanently locks the required parts in the selected coll
 
 ## License
 
-No open-source license has been selected. Public visibility does not grant a general license to redistribute or reuse the code.
+## License
+
+All rights reserved. See [LICENSE](LICENSE).
+Public visibility is not a grant to reuse this code.
+
+Security reports: see [SECURITY.md](SECURITY.md).
