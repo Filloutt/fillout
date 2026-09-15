@@ -4,6 +4,8 @@ Circuit workspace and marketplace for OpenBook and FillOut on Robinhood Chain.
 
 Website: https://fillout.work
 
+See [Getting started](GETTING-STARTED.md) for the file guide, local setup and instructions for continuing development with another assistant.
+
 ## Features
 
 - Quote (NAND) and Settle (one-bit memory) circuit editor.
