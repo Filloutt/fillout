@@ -1,26 +1,15 @@
 # Recovered Solidity sources
 
-Recovered from the project's `mainnet-ready-kit/contracts` directory. Files are preserved without Solidity edits:
-
-- `FillOutParts.sol`: ERC-1155 Quote and Settle parts with separate lifetime caps.
-- `OpenBookDesk.sol`: mint desk.
-- `FillOutMarket.sol`: fixed-price listings.
-- `FillOutCircuits.sol`: circuit NFTs and permanent parts locking.
+These four recovered sources describe Parts, Desk, Market and Circuits. Solidity source files are preserved without edits.
 
 ## Compile locally
 
-```sh
-cd contracts
-npm install
-npm run compile
-```
-
-This validation build pins solc 0.8.26 and OpenZeppelin 5.6.1, optimizer 200 runs, Cancun EVM. These are the locally tested validation dependencies, **not confirmed deployment settings**. The recovered kit configuration requested Solidity 0.8.27 and an unpinned OpenZeppelin range. Exact Remix compiler metadata has not been recovered.
-
-Generated artifacts are ignored by Git. No deployment command or wallet key is needed to compile.
+Run npm ci and npm run compile in this directory. The build pins Solidity 0.8.27 and OpenZeppelin 5.6.1, optimizer disabled (runs 200), Cancun EVM, matching the settings used for the recorded runtime comparison. No wallet or deployment is required.
 
 ## Verification status
 
-Compilation is a source check, not an audit. Mainnet bytecode equivalence remains unverified. Obtain the original Remix build metadata and compare deployed bytecode, including constructor immutable values, before calling these verified deployed sources or redeploying them. Existing configured addresses are in `../docs/contracts.md`.
+The internal comparison matched all deployed runtime bytes for both Parts, Desk and Market contracts (six contracts), after populating constructor immutable values from the recorded getters. Both Circuits executable runtimes matched, but compiler metadata differed. Constructor execution was not reproduced. Compilation alone does not repeat that on-chain comparison or establish security.
 
-Integration follow-up: the recovered Circuits source exposes `nextId()`, while the frontend's circuit holdings reader currently uses the selector for `nextListingId()`. This discrepancy requires separate ABI/on-chain validation and a frontend fix; this source upload does not change the live site.
+See [the transparency report](../TRANSPARENCY.md), [comparison evidence](../verified-comparison.json), and the four root Standard JSON inputs. Explorer verification remains unconfirmed; no independent audit has been performed.
+
+The frontend Circuits holdings reader now calls nextId() (0x61b8ce8c). Market listing reads continue to use nextListingId() (0xaaccf1ec). Repository changes do not by themselves deploy the live website.

@@ -2,7 +2,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const solc=require('solc');
 const sources=Object.fromEntries(fs.readdirSync(path.join(__dirname,'src')).filter(f=>f.endsWith('.sol')).map(f=>[f,{content:fs.readFileSync(path.join(__dirname,'src',f),'utf8')}]));
-const input={language:'Solidity',sources,settings:{optimizer:{enabled:true,runs:200},evmVersion:'cancun',outputSelection:{'*':{'*':['abi','evm.bytecode.object','evm.deployedBytecode.object']}}}};
+const input={language:'Solidity',sources,settings:{optimizer:{enabled:false,runs:200},evmVersion:'cancun',outputSelection:{'*':{'*':['abi','evm.bytecode.object','evm.deployedBytecode.object']}}}};
 const output=JSON.parse(solc.compile(JSON.stringify(input),{import:name=>{try{if(!name.startsWith('@openzeppelin/contracts/'))throw Error('Unsupported import');return {contents:fs.readFileSync(require.resolve(name),'utf8')};}catch(e){return {error:e.message};}}}));
 for(const error of output.errors||[])console.error(error.formattedMessage);
 if((output.errors||[]).some(e=>e.severity==='error'))process.exit(1);
