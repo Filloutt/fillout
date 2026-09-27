@@ -1,8 +1,7 @@
 # Security
 
 FillOut talks to Robinhood Chain mainnet. Creating a circuit NFT
-locks parts permanently. Recovered Solidity sources are not
-verified against deployed bytecode and have not been audited.
+locks parts permanently. The internal runtime comparison matched both Parts, Desk and Market contracts completely (six contracts). Both Circuits contracts matched executable runtime code but not compiler metadata. Explorer verification remains unconfirmed. See [TRANSPARENCY.md](TRANSPARENCY.md) for the dated evidence and limitations. No independent audit has been performed.
 
 ## Report privately
 

@@ -40,12 +40,12 @@ No proxy upgrade or pause mechanism appears in the reviewed source. This stateme
 
 1. Submit the compiler inputs to the explorer and record actual verification results.
 2. Resolve the two Circuits metadata differences before claiming full source matching.
-3. Publish this disclosure and evidence on GitHub and link it from the live site.
+3. Link the published GitHub disclosure and evidence from the live site once publishing access is available.
 4. Independently review contract security, including receiver behavior, approvals, fee handling and failed payments.
 5. Review any future VRAM token and reward system separately before activation.
 
-The local site config still contains OpenBook 50,000/50,000 legacy tokenomics values; the on-chain getters above return 78,261/21,739. The fallback configuration is corrected to the observed caps in the accompanying website update.
+The repository fallback configuration now uses the observed OpenBook caps of 78,261/21,739. The Circuits holdings reader uses nextId(); market listings use nextListingId(). These repository corrections do not confirm a live-site deployment.
 
 ## Publication status
 
-Prepared for publication with the evidence files. Sites owner access has been restored. No independent audit was commissioned and no public “audited” or “verified” badge is claimed.
+The report and evidence are published on GitHub. Live-site publication is pending: the currently connected Sites account returns project not found. No independent audit was commissioned and no public “audited” or “verified” badge is claimed.
