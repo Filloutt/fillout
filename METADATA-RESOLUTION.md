@@ -9,4 +9,4 @@ Both configured Circuits runtimes are 13,692 bytes. After substituting each reco
 - OpenBook: 0xd57Ad2d8AD81606Bd529D483EAfd50CdaA912ddE
 - FillOut: 0x1cc873CC2b86536aEdE951e54D2aDA6154018d95
 
-Comparison uses the existing onchain.json snapshot at block 0x465a073. No deployed contract or source logic was modified. Updated FillOutCircuits-standard-input.json preserves the exact source text; verified-comparison.json now records eight full runtime matches. Constructor execution was not independently replayed. Explorer verification still requires a confirmed submission result.
+Comparison uses the existing onchain.json snapshot at block 0x465a073. No deployed contract or source logic was modified. Updated FillOutCircuits-standard-input.json preserves the exact source text; verified-comparison.json now records eight full runtime matches. Constructor execution was not independently replayed. FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight.

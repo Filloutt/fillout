@@ -63,7 +63,7 @@ Read the [internal review and evidence](TRANSPARENCY.md) for source matching, ad
 
 ## Contracts and source status
 
-See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. The internal review now records full runtime matches for all eight contracts, including metadata; the earlier Circuits mismatch was resolved by reproducing LF source line endings; see TRANSPARENCY.md for method and limits. Explorer verification is not confirmed. Compilation is not a security audit.
+See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. The internal review now records full runtime matches for all eight contracts, including metadata; the earlier Circuits mismatch was resolved by reproducing LF source line endings; see TRANSPARENCY.md for method and limits. FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight. Compilation is not a security audit.
 
 Creating a circuit NFT permanently locks the required parts in the selected collection's circuit contract. Browser drafts are stored locally and should be exported for backup.
 

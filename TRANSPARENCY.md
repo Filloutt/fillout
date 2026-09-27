@@ -6,12 +6,12 @@ Prepared 27 September 2026. Internal technical review, not an independent audit 
 
 Eight configured contracts were read on Robinhood Chain, chain ID 4663, at block 0x465a073. See onchain.json for addresses, runtime code hashes, balances and returned values. No transaction was signed or sent.
 
-Recovered sources were compiled using Solidity 0.8.27+commit.40a35a09, OpenZeppelin 5.6.1, optimizer disabled (runs 200), EVM Cancun. Immutable values were populated from the recorded contract getters before comparison.
+Recovered sources were compiled using Solidity 0.8.27+commit.40a35a09, OpenZeppelin 5.6.1, optimizer.enabled = false (the recorded runs parameter is 200), EVM Cancun. Immutable values were populated from the recorded contract getters before comparison.
 
 - Both Parts, Desk and Market contracts: complete deployed runtime bytes matched, including metadata (six contracts).
 - Both Circuits contracts: complete deployed runtime bytes now match, including compiler metadata. The mismatch was resolved by compiling the recovered FillOutCircuits.sol source with LF line endings. All eight configured contracts now have full runtime matches.
 - Constructor execution and historical transactions were not independently reproduced by this runtime comparison.
-- Explorer verification was attempted for FillOut Parts through the Standard JSON form. No success confirmation was returned. Explorer verification remains unconfirmed; no verified badge is claimed.
+- FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight.
 
 These results improve source provenance but do not establish absence of vulnerabilities. The complete comparison is in verified-comparison.json. Standard JSON compiler inputs are included for explorer verification.
 
@@ -44,7 +44,7 @@ Slither 0.11.6 completed a scan of the four recovered sources and their dependen
 
 1. Submit the compiler inputs to the explorer and record actual verification results.
 2. Preserve the exact LF source text and matching Standard JSON input; metadata matching is resolved.
-3. Link the published GitHub disclosure and evidence from the live site once publishing access is available.
+3. Keep the published Security & Transparency page and GitHub evidence synchronized.
 4. Independently review contract security, including receiver behavior, approvals, fee handling and failed payments.
 5. Review any future VRAM token and reward system separately before activation.
 
@@ -52,4 +52,4 @@ The repository fallback configuration now uses the observed OpenBook caps of 78,
 
 ## Publication status
 
-The report and evidence are published on GitHub. Live-site publication is pending: the currently connected Sites account returns project not found. No independent audit was commissioned and no public “audited” or “verified” badge is claimed.
+The report and evidence are published on GitHub. Site owner access was confirmed and the Security & Transparency page was published in Sites version 55 on 27 September 2026. No independent audit was commissioned and no independent-audit badge is claimed. Explorer verification is limited to the specifically confirmed address above.
