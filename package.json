@@ -4,9 +4,11 @@
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "test": "node scripts/check.mjs && node test-engine.mjs"
+    "test": "node scripts/check.mjs && node test-engine.mjs && node test-holdings-reader.mjs && node verify-examples.mjs"
   }
 }

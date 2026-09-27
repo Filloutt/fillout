@@ -36,6 +36,10 @@ Circuits: fill validates the netlist, permanently receives parts and creates an 
 
 No proxy upgrade or pause mechanism appears in the reviewed source. This statement is limited to the matched runtime and does not cover website administration, wallet compromise or future contracts.
 
+## Static analysis
+
+Slither 0.11.6 completed a scan of the four recovered sources and their dependencies. The unfiltered output contains warnings; see [STATIC-ANALYSIS.md](STATIC-ANALYSIS.md) for counts, every High/Medium record group, dispositions and reproduction instructions. This is an internal automated check, not an independent audit.
+
 ## Remaining work
 
 1. Submit the compiler inputs to the explorer and record actual verification results.
