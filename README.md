@@ -6,6 +6,25 @@ Website: https://fillout.work
 
 See [Getting started](GETTING-STARTED.md) for the file guide, local setup and instructions for continuing development with another assistant.
 
+## Learn to build circuits
+
+Start with the [Circuit guide](CIRCUIT-GUIDE.md): parts, wiring, truth tables, memory, simulation and circuit NFT creation.
+
+| Resource | What you will learn |
+| --- | --- |
+| [Circuit guide](CIRCUIT-GUIDE.md) | How Quote and Settle work, with diagrams and worked examples |
+| [NAND draft](example-nand.json) | Two inputs, one Quote, one output |
+| [NOT draft](example-not.json) | Invert a bit using one Quote |
+| [XOR draft](example-xor.json) | Build exclusive OR using four Quotes |
+| [Memory draft](example-memory.json) | Store one bit using one Settle |
+| [Roadmap](ROADMAP.md) | Proposed challenges, circuit evaluation and VRAM rewards |
+
+Download an example as a raw JSON file and import it in the Studio. Simulating these drafts is local and does not require minting. Creating a circuit NFT is a separate mainnet transaction.
+
+**Network:** Robinhood Chain mainnet, chain ID **4663**. ETH is used for gas; this is not Ethereum L1.
+
+**Status:** circuit editing, simulation and NFT creation exist. Challenges, power scoring and VRAM rewards are planned and are not implemented by this documentation update.
+
 ## Features
 
 - Quote (NAND) and Settle (one-bit memory) circuit editor.
@@ -46,9 +65,8 @@ Creating a circuit NFT permanently locks the required parts in the selected coll
 
 ## License
 
-## License
-
 All rights reserved. See [LICENSE](LICENSE).
 Public visibility is not a grant to reuse this code.
 
 Security reports: see [SECURITY.md](SECURITY.md).
+
