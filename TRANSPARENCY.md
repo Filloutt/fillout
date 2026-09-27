@@ -11,7 +11,7 @@ Recovered sources were compiled using Solidity 0.8.27+commit.40a35a09, OpenZeppe
 - Both Parts, Desk and Market contracts: complete deployed runtime bytes matched, including metadata (six contracts).
 - Both Circuits contracts have a complete deployed runtime byte-for-byte match, including compiler metadata, using the recovered FillOutCircuits.sol source with LF line endings, Solidity 0.8.27, OpenZeppelin 5.6.1, optimizer.enabled = false and EVM Cancun. Constructor execution was not independently replayed.
 - Constructor execution and historical transactions were not independently reproduced by this runtime comparison.
-- FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight.
+- Both Circuits contracts received explorer exact-match confirmations on 27 September 2026: FillOut (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) and OpenBook (0xd57Ad2d8AD81606Bd529D483EAfd50CdaA912ddE). The six Parts, Desk and Market contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight.
 
 These results improve source provenance but do not establish absence of vulnerabilities. The complete comparison is in verified-comparison.json. Standard JSON compiler inputs are included for explorer verification.
 
@@ -38,12 +38,12 @@ No proxy upgrade or pause mechanism appears in the reviewed source. This stateme
 
 ## Static analysis
 
-Slither 0.11.6 completed a scan of the four recovered sources and their dependencies. The unfiltered output contains warnings; see [STATIC-ANALYSIS.md](STATIC-ANALYSIS.md) for counts, every High/Medium record group, dispositions and reproduction instructions. This is an internal automated check, not an independent audit.
+Slither 0.11.6 completed a scan of the four recovered sources and their dependencies. The unfiltered output contains warnings; see [STATIC-ANALYSIS.md](STATIC-ANALYSIS.md) for counts, every High/Medium record group, dispositions and reproduction instructions. This is an internal automated check, not an independent audit. Local adversarial behavior tests passed; see [BEHAVIOR-TESTS.md](BEHAVIOR-TESTS.md) for coverage and limits. The repository workflow runs these checks on pushes and pull requests.
 
 ## Remaining work
 
 1. Submit the compiler inputs to the explorer and record actual verification results.
-2. Submit the exact LF Standard JSON for the remaining OpenBook Circuits explorer verification and record its result. The metadata mismatch is closed.
+2. Closed: both Circuits metadata matches and explorer exact-match confirmations are recorded. Continue explorer verification for the remaining six contracts.
 3. Keep the published Security & Transparency page and GitHub evidence synchronized.
 4. Independently review contract security, including receiver behavior, approvals, fee handling and failed payments.
 5. Review any future VRAM token and reward system separately before activation.
@@ -52,4 +52,4 @@ The repository fallback configuration now uses the observed OpenBook caps of 78,
 
 ## Publication status
 
-The report and evidence are published on GitHub. Site owner access was confirmed and the Security & Transparency page was published in Sites version 55 on 27 September 2026. No independent audit was commissioned and no independent-audit badge is claimed. Explorer verification is limited to the specifically confirmed address above.
+The report and evidence are published on GitHub. Site owner access was confirmed and the Security & Transparency page was published in Sites version 56 on 27 September 2026. No independent audit was commissioned and no independent-audit badge is claimed. Explorer verification is limited to the specifically confirmed addresses above.
