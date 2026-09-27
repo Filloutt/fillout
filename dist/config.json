@@ -14,8 +14,8 @@
   "nativeSymbol": "ETH",
   "tokenomics": {
     "sharedSupply": 100000,
-    "quoteSupply": 50000,
-    "settleSupply": 50000,
+    "quoteSupply": 78261,
+    "settleSupply": 21739,
     "ethReferenceUsd": 2500,
     "unitMintPriceUsd": 0.5,
     "unitMintPriceEth": "0.0002",
