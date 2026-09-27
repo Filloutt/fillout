@@ -9,3 +9,5 @@ node_modules/
 .openai/
 dist/.openai/
 contracts/artifacts/
+
+contracts/test-cache/
