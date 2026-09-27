@@ -57,9 +57,13 @@ Tests check JavaScript syntax, NAND truth tables, memory transitions, binary enc
 
 The live website is hosted on Sites. This repository is a source snapshot and development home; pushing to GitHub does not automatically deploy the live website. Publish reviewed changes through the existing Sites project. Do not change domain DNS to GitHub Pages unless intentionally migrating hosting.
 
+## Security & transparency
+
+Read the [internal review and evidence](TRANSPARENCY.md) for source matching, administrator permissions, money flows and unresolved verification items. This is not an independent audit.
+
 ## Contracts and source status
 
-See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. Their equivalence to mainnet bytecode and exact Remix deployment settings remain unverified. Compilation is not a security audit.
+See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. The internal review now records full runtime matches for six contracts and executable-only matches for two circuit contracts; see TRANSPARENCY.md for method and limits. Explorer verification is not confirmed. Compilation is not a security audit.
 
 Creating a circuit NFT permanently locks the required parts in the selected collection's circuit contract. Browser drafts are stored locally and should be exported for backup.
 
@@ -69,4 +73,5 @@ All rights reserved. See [LICENSE](LICENSE).
 Public visibility is not a grant to reuse this code.
 
 Security reports: see [SECURITY.md](SECURITY.md).
+
 
