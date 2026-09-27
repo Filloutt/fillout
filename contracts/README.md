@@ -13,3 +13,7 @@ The internal comparison matched all deployed runtime bytes for both Parts, Desk 
 See [the transparency report](../TRANSPARENCY.md), [comparison evidence](../verified-comparison.json), and the four root Standard JSON inputs. Explorer exact-match verification is confirmed for FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95); the other seven contracts remain unconfirmed in the explorer. No independent audit has been performed.
 
 The frontend Circuits holdings reader now calls nextId() (0x61b8ce8c). Market listing reads continue to use nextListingId() (0xaaccf1ec). Repository changes do not by themselves deploy the live website.
+
+## Local adversarial checks
+
+Run `npm run test:security` after `npm ci`. See [BEHAVIOR-TESTS.md](../BEHAVIOR-TESTS.md) for passed scenarios and limitations. Fixtures use an in-memory chain, never mainnet.

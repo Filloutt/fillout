@@ -1,0 +1,37 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),solc=require('solc'),{ethers}=require('ethers'),hre=require('hardhat');
+(async()=>{
+ const provider=new ethers.BrowserProvider(hre.network.provider,undefined,{cacheTimeout:-1});provider.pollingInterval=10;
+ assert.equal((await provider.getNetwork()).chainId,31337n,'Local chain only');
+ const owner=await provider.getSigner(0),buyer=await provider.getSigner(1),treasury=await provider.getSigner(2);
+ const oa=await owner.getAddress(),ba=await buyer.getAddress(),ta=await treasury.getAddress();
+ const out=JSON.parse(solc.compile(JSON.stringify({language:'Solidity',sources:{'Adversary.test.sol':{content:fs.readFileSync('Adversary.test.sol','utf8')}},settings:{evmVersion:'cancun',optimizer:{enabled:false},outputSelection:{'*':{'*':['abi','evm.bytecode.object']}}}})));
+ if((out.errors||[]).some(e=>e.severity==='error'))throw Error(JSON.stringify(out.errors));
+ const deploy=async(name,args=[])=>{const a=name==='Adversary'?out.contracts['Adversary.test.sol'].Adversary:JSON.parse(fs.readFileSync('artifacts/'+name+'.json'));const c=await new ethers.ContractFactory(a.abi,'0x'+a.evm.bytecode.object,owner).deploy(...args);await c.waitForDeployment();return c};
+ const tx=async p=>(await p).wait(),fail=async p=>assert.rejects(async()=>tx(p)),addr=c=>c.getAddress(),enc=(c,n,a)=>c.interface.encodeFunctionData(n,a);
+ const balance=async a=>BigInt(await hre.network.provider.send('eth_getBalance',[a,'latest']));
+ const parts=await deploy('FillOutParts',[20,10,'',oa]),circuits=await deploy('FillOutCircuits',[await addr(parts)]),evil=await deploy('Adversary');const ea=await addr(evil),ca=await addr(circuits),pa=await addr(parts);
+ const net='0x4143445600010002000100000000000110000000020000000300000004';
+ await tx(parts.mint(ea,0,5));await tx(evil.execute(pa,enc(parts,'setApprovalForAll',[ca,true])));
+ await tx(evil.arm(ca,enc(circuits,'fill',[net]),0,false,false));await tx(evil.execute(ca,enc(circuits,'fill',[net])));
+ assert.equal(await evil.attempted(),true);assert.equal(await evil.succeeded(),false);assert.equal((await evil.result()).slice(0,10),'0x3ee5aeb5');assert.equal(await circuits.nextId(),1n);assert.equal(await circuits.ownerOf(0),ea);assert.equal(await parts.balanceOf(ca,0),1n);
+ console.log('PASS NFT callback reentry blocked; one NFT and exact part lock');
+ await tx(evil.arm(ethers.ZeroAddress,'0x',0,false,true));await fail(evil.execute(ca,enc(circuits,'fill',[net])));assert.equal(await circuits.nextId(),1n);assert.equal(await parts.balanceOf(ca,0),1n);
+ await tx(parts.mint(oa,0,2));await fail(circuits.fill(net));await tx(parts.setApprovalForAll(ca,true));await fail(circuits.fill(net+'00'));await fail(parts.safeTransferFrom(oa,ca,0,1,'0x'));assert.equal(await circuits.nextId(),1n);
+ console.log('PASS circuit receiver rejection, missing approval, malformed netlist, direct deposit rejection');
+ const fake=await deploy('Adversary'),guarded=await deploy('FillOutCircuits',[await addr(fake)]);await tx(fake.arm(await addr(guarded),enc(guarded,'fill',[net]),0,false,false));await tx(guarded.fill(net));assert.equal(await fake.attempted(),true);assert.equal(await fake.succeeded(),false);assert.equal((await fake.result()).slice(0,10),'0x3ee5aeb5');assert.equal(await guarded.nextId(),1n);
+ console.log('PASS malicious parts-call fixture cannot reenter fill (separate fixture)');
+ const market=await deploy('FillOutMarket',[pa,ta,100,oa]),ma=await addr(market);await tx(parts.setApprovalForAll(ma,true));await tx(market.createListing(0,2,10000));await fail(market.connect(buyer).cancelListing(0));await fail(market.connect(buyer).buy(0,1,{value:9999}));await fail(market.connect(buyer).buy(0,3,{value:30000}));
+ const tb=await balance(ta);await tx(market.connect(buyer).buy(0,1,{value:10000}));assert.equal(await balance(ta),tb+100n);assert.equal(await parts.balanceOf(ba,0),1n);await tx(market.cancelListing(0));assert.equal((await market.listings(0)).active,false);assert.equal(await parts.balanceOf(ma,0),0n);await fail(market.connect(buyer).buy(0,1,{value:10000}));
+ console.log('PASS market authorization, price/quantity, exact fee, cancellation and unsold recovery');
+ await tx(evil.arm(ethers.ZeroAddress,'0x',0,true,false));await tx(evil.execute(pa,enc(parts,'setApprovalForAll',[ma,true])));await tx(evil.execute(ma,enc(market,'createListing',[0,2,10000])));const fb=await balance(ta);await fail(market.connect(buyer).buy(1,1,{value:10000}));assert.equal(await balance(ta),fb);assert.equal((await market.listings(1)).remaining,2n);
+ await tx(evil.arm(ma,enc(market,'cancelListing',[1]),0,false,false));await tx(market.connect(buyer).buy(1,1,{value:10000}));assert.equal(await evil.attempted(),true);assert.equal(await evil.succeeded(),false);assert.equal((await evil.result()).slice(0,10),'0x3ee5aeb5');assert.equal((await market.listings(1)).remaining,1n);
+ console.log('PASS rejected seller payment rolls back; payment callback cannot cancel listing');
+ await tx(evil.arm(ethers.ZeroAddress,'0x',0,false,true));const sb=await balance(ea),fb2=await balance(ta);await fail(evil.execute(ma,enc(market,'buy',[1,1]),{value:10000}));assert.equal(await balance(ea),sb);assert.equal(await balance(ta),fb2);assert.equal((await market.listings(1)).remaining,1n);
+ console.log('PASS rejected buyer receipt rolls back seller payment, fee and listing');
+ const dp=await deploy('FillOutParts',[3,2,'',oa]),rt=await deploy('Adversary'),desk=await deploy('OpenBookDesk',[await addr(dp),await addr(rt),1000,3,2,oa]);await tx(dp.transferOwnership(await addr(desk)));await fail(dp.mint(oa,0,1));await fail(desk.connect(buyer).withdraw());await fail(desk.buy(0,1,0,{value:999}));await tx(rt.arm(ethers.ZeroAddress,'0x',0,true,false));await fail(desk.buy(0,1,10,{value:1010}));assert.equal(await dp.quoteMinted(),0n);await tx(desk.buy(0,1,0,{value:1000}));assert.equal(await dp.quoteMinted(),1n);await fail(desk.withdraw());assert.equal(await balance(await addr(desk)),1000n);await tx(rt.arm(ethers.ZeroAddress,'0x',0,false,false));await tx(desk.withdraw());assert.equal(await balance(await addr(rt)),1000n);await fail(desk.buy(0,3,0,{value:3000}));assert.equal(await dp.quoteMinted(),1n);
+ console.log('PASS desk ownership, price, cap, rejected treasury, withdrawal destination; zero platformFee accepted');
+ await tx(evil.arm(ethers.ZeroAddress,'0x',0,false,false));await tx(owner.sendTransaction({to:ea,value:2000}));await tx(evil.arm(await addr(desk),enc(desk,'buy',[0,1,0]),1000,false,false));const before=await dp.quoteMinted();await tx(evil.execute(await addr(desk),enc(desk,'buy',[0,1,0]),{value:1000}));assert.equal(await evil.attempted(),true);assert.equal(await evil.succeeded(),false);assert.equal((await evil.result()).slice(0,10),'0x3ee5aeb5');assert.equal(await dp.quoteMinted(),before+1n);
+ console.log('PASS mint receiver cannot reenter Desk.buy');
+ console.log('ALL LOCAL ADVERSARIAL SCENARIOS PASSED; no public RPC or wallet used.');
+})().catch(e=>{console.error(e);process.exitCode=1});
+

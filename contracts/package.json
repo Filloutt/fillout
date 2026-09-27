@@ -2,10 +2,13 @@
   "name": "fillout-contract-sources",
   "private": true,
   "scripts": {
-    "compile": "node compile.cjs"
+    "compile": "node compile.cjs",
+    "test:security": "npm run compile && node test-security.cjs"
   },
   "devDependencies": {
-    "solc": "0.8.27",
-    "@openzeppelin/contracts": "5.6.1"
+    "@openzeppelin/contracts": "5.6.1",
+    "ethers": "6.15.0",
+    "hardhat": "2.29.1",
+    "solc": "0.8.27"
   }
 }
