@@ -13,7 +13,7 @@ The unfiltered scan completed successfully and returned 253 records: 3 High, 27 
 - Informational low-level-calls: Desk/Market payment calls check success and their transaction entry points are guarded. Rejecting recipients can cause a purchase to revert; source order and EVM atomicity do not imply a successful partial payment.
 - Other informational records concern dependency pragmas, assembly, compiler-version ranges, constants and similar source patterns. A broad pragma is not the compiler actually used; the build is now pinned.
 
-No Solidity or dependency code was changed to hide scanner warnings. These results do not establish that contracts have no vulnerabilities. Metadata provenance, explorer verification, behavior tests and live-site publishing remain separate work.
+No Solidity or dependency code was changed to hide scanner warnings. These results do not establish that contracts have no vulnerabilities. The Circuits metadata mismatch has since been resolved by reproducing LF source line endings (see TRANSPARENCY.md). Explorer verification, behavior tests and live-site publishing remain separate work.
 
 ## Every High/Medium record group
 

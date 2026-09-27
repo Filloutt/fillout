@@ -9,7 +9,7 @@ Eight configured contracts were read on Robinhood Chain, chain ID 4663, at block
 Recovered sources were compiled using Solidity 0.8.27+commit.40a35a09, OpenZeppelin 5.6.1, optimizer disabled (runs 200), EVM Cancun. Immutable values were populated from the recorded contract getters before comparison.
 
 - Both Parts, Desk and Market contracts: complete deployed runtime bytes matched, including metadata (six contracts).
-- Both Circuits contracts: executable runtime bytes matched; compiler metadata differed. This is not a complete byte-for-byte match.
+- Both Circuits contracts: complete deployed runtime bytes now match, including compiler metadata. The mismatch was resolved by compiling the recovered FillOutCircuits.sol source with LF line endings. All eight configured contracts now have full runtime matches.
 - Constructor execution and historical transactions were not independently reproduced by this runtime comparison.
 - Explorer verification was attempted for FillOut Parts through the Standard JSON form. No success confirmation was returned. Explorer verification remains unconfirmed; no verified badge is claimed.
 
@@ -32,7 +32,7 @@ Desk: anyone can buy parts through buy. Unit price and treasury are immutable. T
 
 Market: sellers escrow parts, choose a price and can cancel their own active listings to recover the remainder. A purchase sends 1% to the fixed treasury and the remainder to the seller, then delivers parts. The reviewed source has no owner-only listing seizure, fee setter, pause or marketplace withdrawal function. Inherited ownership functions remain present.
 
-Circuits: fill validates the netlist, permanently receives parts and creates an ERC-721 NFT. The reviewed executable logic has no part withdrawal or dismantling operation and no owner/admin role. Its metadata mismatch remains an open provenance item. Recompiling recovered modular and flattened source variants with the matching compiler did not reproduce the metadata hash. The embedded IPFS metadata reference is QmVK6ukRJNZZnqhq44yGG9H7Tt9qU4uXKP6Lh9hDDfPgtQ; attempts to retrieve it through public gateways did not return metadata.
+Circuits: fill validates the netlist, permanently receives parts and creates an ERC-721 NFT. The reviewed executable logic has no part withdrawal or dismantling operation and no owner/admin role. The earlier metadata mismatch was resolved: the recovered modular FillOutCircuits.sol file must use LF line endings. With that exact source text and the recorded compiler settings, both complete runtimes match after immutable substitution. The embedded IPFS metadata reference is QmVK6ukRJNZZnqhq44yGG9H7Tt9qU4uXKP6Lh9hDDfPgtQ; public gateway retrieval previously failed, but the matching compiler output now reproduces the metadata locally.
 
 No proxy upgrade or pause mechanism appears in the reviewed source. This statement is limited to the matched runtime and does not cover website administration, wallet compromise or future contracts.
 
@@ -43,7 +43,7 @@ Slither 0.11.6 completed a scan of the four recovered sources and their dependen
 ## Remaining work
 
 1. Submit the compiler inputs to the explorer and record actual verification results.
-2. Resolve the two Circuits metadata differences before claiming full source matching.
+2. Preserve the exact LF source text and matching Standard JSON input; metadata matching is resolved.
 3. Link the published GitHub disclosure and evidence from the live site once publishing access is available.
 4. Independently review contract security, including receiver behavior, approvals, fee handling and failed payments.
 5. Review any future VRAM token and reward system separately before activation.

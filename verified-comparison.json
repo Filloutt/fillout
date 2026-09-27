@@ -60,9 +60,9 @@
     "immutables": {
       "parts": "0xcaeacd999e09524a47cc790cc2aa65148da2c484"
     },
-    "fullRuntimeMatch": false,
+    "fullRuntimeMatch": true,
     "executableMatch": true,
-    "metadataMatches": false
+    "metadataMatches": true
   },
   {
     "collection": "FillOut",
@@ -71,9 +71,9 @@
     "immutables": {
       "parts": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0"
     },
-    "fullRuntimeMatch": false,
+    "fullRuntimeMatch": true,
     "executableMatch": true,
-    "metadataMatches": false
+    "metadataMatches": true
   },
   {
     "collection": "OpenBook",
