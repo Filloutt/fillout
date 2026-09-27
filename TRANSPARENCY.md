@@ -9,7 +9,7 @@ Eight configured contracts were read on Robinhood Chain, chain ID 4663, at block
 Recovered sources were compiled using Solidity 0.8.27+commit.40a35a09, OpenZeppelin 5.6.1, optimizer.enabled = false (the recorded runs parameter is 200), EVM Cancun. Immutable values were populated from the recorded contract getters before comparison.
 
 - Both Parts, Desk and Market contracts: complete deployed runtime bytes matched, including metadata (six contracts).
-- Both Circuits contracts: complete deployed runtime bytes now match, including compiler metadata. The mismatch was resolved by compiling the recovered FillOutCircuits.sol source with LF line endings. All eight configured contracts now have full runtime matches.
+- Both Circuits contracts have a complete deployed runtime byte-for-byte match, including compiler metadata, using the recovered FillOutCircuits.sol source with LF line endings, Solidity 0.8.27, OpenZeppelin 5.6.1, optimizer.enabled = false and EVM Cancun. Constructor execution was not independently replayed.
 - Constructor execution and historical transactions were not independently reproduced by this runtime comparison.
 - FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight.
 
@@ -43,7 +43,7 @@ Slither 0.11.6 completed a scan of the four recovered sources and their dependen
 ## Remaining work
 
 1. Submit the compiler inputs to the explorer and record actual verification results.
-2. Preserve the exact LF source text and matching Standard JSON input; metadata matching is resolved.
+2. Submit the exact LF Standard JSON for the remaining OpenBook Circuits explorer verification and record its result. The metadata mismatch is closed.
 3. Keep the published Security & Transparency page and GitHub evidence synchronized.
 4. Independently review contract security, including receiver behavior, approvals, fee handling and failed payments.
 5. Review any future VRAM token and reward system separately before activation.
