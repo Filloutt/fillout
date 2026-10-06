@@ -11,3 +11,5 @@ dist/.openai/
 contracts/artifacts/
 
 contracts/test-cache/
+
+contracts/.test-state/

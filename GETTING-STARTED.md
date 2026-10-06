@@ -33,11 +33,14 @@ npm test
 - `dist/styles.css`: Visual styling and layout.
 - `dist/config.json`: Network settings and contract addresses for both collections.
 - `dist/index.html`: Application entry point.
-- `hosting-backup/hosting.json`: Connection information for the existing Sites project.
+- `dist/launch.mjs`: Landing page and application loading.
+- `dist/holdings.mjs`, `listing-page.mjs`, `wallet-session.mjs`: Tested readers and wallet state.
 
 ## Hosting and domain
 
 Publish directory: `dist/`.
+
+This public snapshot contains the browser application. The live Sites deployment also has a private analytics backend and admin page; those hosting files and credentials are intentionally excluded. The static snapshot does not send analytics events to an unavailable backend.
 
 Domain and DNS are managed outside this repository. Pushing to GitHub does not deploy the live site.
 
@@ -45,7 +48,7 @@ Do not commit hosting project IDs, registrar logins, or wallet keys.
 
 The site can be moved to another static host by publishing `dist/`. Test pages and wallet connection on the new URL before changing DNS. HTTPS is required.
 
-Contracts remain on the blockchain when the website moves; moving files does not remove or redeploy them. Four Solidity source files recovered from the preparation kit are included in `contracts/src`. They compiled successfully, but equivalence to the deployed bytecode and the original Remix deployment settings remain unverified. See [the contract source guide](contracts/README.md).
+Contracts remain on the blockchain when the website moves; moving files does not remove or redeploy them. Four Solidity source files recovered from the preparation kit are included in `contracts/src`. The internal review records runtime matches, including metadata, for all eight configured deployments. This is recorded evidence, not an independent audit or a new on-chain check. See [the contract source guide](contracts/README.md).
 
 Wallet private keys, recovery phrases, account passwords and deployment credentials are not included. Do not share them in AI conversations or commit them to this repository.
 

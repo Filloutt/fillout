@@ -20,6 +20,6 @@ These are the addresses configured in the website, not an independent audit or s
 
 Quote is ERC-1155 token ID 0; Settle is ID 1. OpenBook caps: 78,261 Quote and 21,739 Settle (100,000 total). FillOut caps: 31,304 Quote and 8,696 Settle (40,000 total). Ratios are approximately 3.6:1, rounded to whole tokens.
 
-The UI reads live caps and minted counts from contracts. The copied config still contains legacy 50,000/50,000 values in its root `tokenomics` metadata; these are not the deployed OpenBook caps. Preserve this distinction when changing configuration. The source snapshot is kept faithful to the published application.
+The UI reads live caps and minted counts from contracts. The configuration metadata uses the same supply caps listed above; keep both collections separate when updating it.
 
-Solidity sources recovered from the preparation kit are now included under `contracts/src`. See `contracts/README.md` for validation compiler settings and outstanding mainnet verification work. Original Remix build metadata is still required to establish deployment equivalence.
+Solidity sources recovered from the preparation kit are now included under `contracts/src`. See `contracts/README.md` for validation compiler settings and outstanding mainnet verification work. The internal review records runtime matches including metadata for all eight deployments; see TRANSPARENCY.md for evidence and limits. Explorer verification status is tracked separately.

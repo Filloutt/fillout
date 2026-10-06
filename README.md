@@ -47,7 +47,7 @@ Open http://127.0.0.1:8080. Browser wallets and RPC access are needed for blockc
 npm test
 ```
 
-Tests check JavaScript syntax, NAND truth tables, memory transitions, binary encoding and invalid circuits. They do not submit wallet transactions or audit deployed contracts.
+Tests check JavaScript syntax, circuit logic and encoding, simulation and history, refresh backoff, market pagination, holdings, wallet state and pre-transaction account/network checks. They do not submit wallet transactions or audit deployed contracts.
 
 ## Project layout
 

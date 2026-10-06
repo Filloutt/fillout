@@ -1,0 +1,123 @@
+{
+  "checkedAt": "2026-09-27T07:43:19.461Z",
+  "chainId": 4663,
+  "block": "0x465a073",
+  "contracts": [
+    {
+      "collection": "OpenBook",
+      "role": "parts",
+      "address": "0xcAEacd999E09524A47CC790cc2AA65148DA2C484",
+      "codeBytes": 9729,
+      "codeHash": "0x7f20577073fdaf13db923a87f4bd28e38bf7e1ba575530212d7074ccf4572284",
+      "balanceWei": "0",
+      "values": {
+        "owner()": "0x71893bc051d74c521d6e9f3464cc6c155294e735",
+        "quoteCap()": "78261",
+        "settleCap()": "21739",
+        "quoteMinted()": "29",
+        "settleMinted()": "8"
+      }
+    },
+    {
+      "collection": "OpenBook",
+      "role": "desk",
+      "address": "0x71893bc051D74c521D6E9F3464cc6c155294e735",
+      "codeBytes": 3639,
+      "codeHash": "0x21fd9543410354245fd0ef582360bf72c8fe92bfcfc58f9c0c811818a3594a82",
+      "balanceWei": "7200000000000000",
+      "values": {
+        "owner()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "parts()": "0xcaeacd999e09524a47cc790cc2aa65148da2c484",
+        "treasury()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "unitPrice()": "200000000000000",
+        "quoteCap()": "78261",
+        "settleCap()": "21739"
+      }
+    },
+    {
+      "collection": "OpenBook",
+      "role": "circuits",
+      "address": "0xd57Ad2d8AD81606Bd529D483EAfd50CdaA912ddE",
+      "codeBytes": 13692,
+      "codeHash": "0x4a2de87281cbb47ae15b007724f1df9e8c7898e511de087c2d0bf695410b0a80",
+      "balanceWei": "0",
+      "values": {
+        "parts()": "0xcaeacd999e09524a47cc790cc2aa65148da2c484",
+        "nextId()": "2"
+      }
+    },
+    {
+      "collection": "OpenBook",
+      "role": "market",
+      "address": "0x9CD6694A2247243FABA441B1c434D0443318395e",
+      "codeBytes": 6857,
+      "codeHash": "0xba2ee36f04511ac125254f483ff3f1d868c19f1b7de6d37630e346619fb6bf22",
+      "balanceWei": "0",
+      "values": {
+        "owner()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "parts()": "0xcaeacd999e09524a47cc790cc2aa65148da2c484",
+        "treasury()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "feeBps()": "100",
+        "nextListingId()": "0"
+      }
+    },
+    {
+      "collection": "FillOut",
+      "role": "parts",
+      "address": "0x700d8b2c19225CA05E3B0a7840ccEBfa0CC2D1E0",
+      "codeBytes": 9729,
+      "codeHash": "0x80a3925edcdd6ba0e71727ffd88465a53cc2db2d3fe10f19d6dbbaee3385bc0e",
+      "balanceWei": "0",
+      "values": {
+        "owner()": "0x1295c70dae7b792368dbac5a95d22b1ebd37086d",
+        "quoteCap()": "31304",
+        "settleCap()": "8696",
+        "quoteMinted()": "11",
+        "settleMinted()": "5"
+      }
+    },
+    {
+      "collection": "FillOut",
+      "role": "desk",
+      "address": "0x1295c70dAE7B792368dbaC5a95D22B1eBD37086d",
+      "codeBytes": 3639,
+      "codeHash": "0x82c12ad8dfd4e8aa7ff8e4617267c336bad9253a6eec629673cd5502ba66098a",
+      "balanceWei": "2800000000000000",
+      "values": {
+        "owner()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "parts()": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0",
+        "treasury()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "unitPrice()": "200000000000000",
+        "quoteCap()": "31304",
+        "settleCap()": "8696"
+      }
+    },
+    {
+      "collection": "FillOut",
+      "role": "circuits",
+      "address": "0x1cc873CC2b86536aEdE951e54D2aDA6154018d95",
+      "codeBytes": 13692,
+      "codeHash": "0xf19b9f90eddf5e54b8c3e11a29cff282e4c479e00ebc5950960ace803904d919",
+      "balanceWei": "0",
+      "values": {
+        "parts()": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0",
+        "nextId()": "0"
+      }
+    },
+    {
+      "collection": "FillOut",
+      "role": "market",
+      "address": "0x3541B64787F90930b2664551cb572a1717fB965B",
+      "codeBytes": 6857,
+      "codeHash": "0xc674bb3fc4767c7d67b269056f054dd95d452397ba957725e3e3659a1c910146",
+      "balanceWei": "0",
+      "values": {
+        "owner()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "parts()": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0",
+        "treasury()": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+        "feeBps()": "100",
+        "nextListingId()": "0"
+      }
+    }
+  ]
+}

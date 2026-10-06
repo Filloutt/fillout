@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {createWalletSession} from './dist/wallet-session.mjs';
+const address='0x'+'1'.repeat(40),other='0x'+'2'.repeat(40);
+let current=address,calls=[],value=null,sign=async()=> '0x'+'a'.repeat(130);
+const data=new Map(),storage={getItem:k=>data.get(k),setItem:(k,v)=>data.set(k,v)};
+const provider={request:async({method,params})=>{calls.push({method,params});if(method==='personal_sign')return sign();if(method==='eth_accounts'||method==='eth_requestAccounts')return current?[current]:[];throw Error('Unexpected wallet operation: '+method);}};
+const options={getProvider:()=>provider,ensureNetwork:async()=>{},origin:'https://fillout.work',onChange:a=>value=a,storage};
+const session=createWalletSession(options);
+await session.connect();assert.equal(value,address);
+const message=Buffer.from(calls.find(c=>c.method==='personal_sign').params[0].slice(2),'hex').toString();
+assert.match(message,/Website: https:\/\/fillout.work/);assert.match(message,/does not authorize transactions/);assert.match(message,/Nonce: [a-f0-9]{32}/);
+value=null;calls=[];const reloaded=createWalletSession(options);await reloaded.restore();assert.equal(value,address);assert.deepEqual(calls.map(c=>c.method),['eth_accounts']);
+reloaded.accountsChanged([other]);assert.equal(value,other);reloaded.accountsChanged([]);assert.equal(value,null);await reloaded.restore();assert.equal(value,address);
+reloaded.unavailable();assert.equal(value,null);await reloaded.restore();assert.equal(value,address);
+session.disconnect();assert.equal(value,null);session.accountsChanged([address]);assert.equal(value,null);
+calls=[];await createWalletSession(options).restore();assert.equal(calls.length,0);assert.equal(value,null);
+sign=async()=>{throw Object.assign(Error('Rejected'),{code:4001});};await assert.rejects(session.connect(),{code:4001});assert.equal(value,null);
+sign=async()=>{current=other;return '0x'+'a'.repeat(130);};await assert.rejects(session.connect(),/account changed/);assert.equal(value,null);
+current=address;let release;sign=()=>new Promise(r=>release=r);const attempt=session.connect();await new Promise(r=>setTimeout(r,0));session.disconnect();release('0x'+'a'.repeat(130));await assert.rejects(attempt,/account changed/);assert.equal(value,null);
+sign=async()=> '0x'+'a'.repeat(130);await session.connect();current=other;session.accountsChanged([other]);assert.equal(value,other);
+assert.ok(calls.every(c=>['eth_requestAccounts','eth_accounts','personal_sign'].includes(c.method)));
+value=null;await createWalletSession({...options,storage:{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}}}).restore();assert.equal(value,other);
+current=null;await createWalletSession({...options,storage:{getItem:()=> 'connected'}}).restore();assert.equal(value,other); // no onChange for null -> null
+let done;const delayed=createWalletSession({...options,getProvider:()=>({request:()=>new Promise(r=>done=r)})});const pending=delayed.restore();delayed.disconnect();done([address]);await pending;assert.equal(data.get('fillout-wallet-connection-v2'),'disconnected');
+console.log('PASS: silent restoration, explicit disconnect, locks, account switches, rejection, races and blocked storage.');

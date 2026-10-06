@@ -9,6 +9,6 @@
   },
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "test": "node scripts/check.mjs && node test-engine.mjs && node test-holdings-reader.mjs && node verify-examples.mjs"
+    "test": "node scripts/check.mjs && node test-assets.mjs && node test-engine.mjs && node test-history.mjs && node test-refresh-gate.mjs && node test-listing-page.mjs && node test-simulation.mjs && node test-wallet-session.mjs && node test-holdings.mjs && node test-transaction-context.mjs && node verify-examples.mjs"
   }
 }

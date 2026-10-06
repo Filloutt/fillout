@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "chainId": 46630,
+  "status": "DEPLOYED_ACTIVE_TESTNET",
+  "networkMode": "testnet-sandbox",
+  "protocol": "FillOut",
+  "core": "OpenBook",
+  "parts": {
+    "quote": {
+      "tokenId": 0,
+      "symbol": "QUOTE",
+      "address": "0xAfa578fA47ca4Ec260C8E5836437ADd150ee6aF2"
+    },
+    "settle": {
+      "tokenId": 1,
+      "symbol": "SETTLE",
+      "address": "0xAfa578fA47ca4Ec260C8E5836437ADd150ee6aF2"
+    }
+  },
+  "ticketPrint": {
+    "address": null
+  },
+  "desk": {
+    "address": "0x2Eab3D2ECfeec3906e8cEDB9204Cf1609F3343DC"
+  },
+  "validator": {
+    "address": null
+  },
+  "market": {
+    "enabled": true,
+    "address": "0xecF3D710928f92d4602154c44CA216E712D78712",
+    "feeBps": 100
+  },
+  "economyApproved": true,
+  "tokenomics": {
+    "sharedSupply": 100000,
+    "quoteSupply": 50000,
+    "settleSupply": 50000,
+    "unitMintPriceWei": "200000000000000",
+    "referenceEthUsd": 2500,
+    "unitMintPriceUsd": 0.5,
+    "feeModel": "network_estimate_plus_equal_platform_fee",
+    "platformFeeMultiplier": 1
+  }
+}
