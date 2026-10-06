@@ -1,0 +1,3 @@
+import {step} from './engine.mjs?v=20260926-1';
+export function analyze(ir){const depths=Array(2+ir.nInputs+ir.localStateCount).fill(0);for(const op of ir.ops)depths.push(1+Math.max(depths[op.a],depths[op.b]));return {depth:Math.max(0,...ir.outputSources.map(i=>depths[i]),...ir.nextStateSources.map(i=>depths[i]))};}
+export function runCycles(ir,state,inputs,count,start=0){if(!Number.isInteger(count)||count<1||count>64)throw Error('Invalid cycle count');const rows=[];let current=[...state];for(let i=0;i<count;i++){const r=step(ir,current,inputs);rows.push({tick:start+i,inputs:[...inputs],state:[...current],outputs:r.outputs,nextState:r.nextState});current=r.nextState;}return {rows,state:current};}

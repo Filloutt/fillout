@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readParts,readCircuitPage,listingValues} from './dist/holdings.mjs';
+const owner='0x'+'1'.repeat(40),partsAddress='0x'+'2'.repeat(40),circuitsAddress='0x'+'3'.repeat(40),word=n=>'0x'+BigInt(n).toString(16).padStart(64,'0');
+let calls=[];
+let results=await readParts({partsAddress,owner,call:async(to,data)=>{calls.push({to,data});if(data.endsWith('1'))throw Error('RPC outage');return word(7);}});
+assert.equal(results[0].amount,7n);assert.equal(results[1].error,true);assert.equal(calls.length,2);assert.ok(calls.every(c=>c.to===partsAddress));
+results=await readParts({partsAddress,owner,call:async()=> '0x'});assert.ok(results.every(r=>r.error));
+const page=await readCircuitPage({circuitsAddress,owner,call:async(to,data)=>{assert.equal(to,circuitsAddress);if(data.startsWith('0x70a08231'))return word(1);if(data==='0x61b8ce8c')return word(1000000);assert.ok(data.startsWith('0x6352211e'));return '0x'+owner.slice(2).padStart(64,'0');}});
+assert.equal(page.ids.length,40);assert.equal(page.start,999960n);assert.equal(page.hasOlder,true);
+const empty=await readCircuitPage({circuitsAddress,owner,call:async(to,data)=>{assert.ok(data.startsWith('0x70a08231'));return word(0);}});assert.equal(empty.owned,0n);assert.deepEqual(empty.ids,[]);
+assert.deepEqual(listingValues('7','0.0003',7n),{amount:7n,price:300000000000000n});
+for(const q of ['0','-1','1.2','1e3','8',''])assert.throws(()=>listingValues(q,'0.1',7n));
+for(const p of ['0','-1','abc','1e3','0.0000000000000000001'])assert.throws(()=>listingValues('1',p,7n));
+assert.throws(()=>listingValues('1','0.1',undefined));
+assert.equal(listingValues('9007199254740993','0.1',9007199254740993n).amount,9007199254740993n);
+console.log('PASS: isolated partial balances, circuit selector/bounded pages and exact sale validation.');

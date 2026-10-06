@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {createRefreshGate} from './dist/refresh-gate.mjs';
+let time=0,calls=0,release;
+const gate=createRefreshGate({interval:30,maxBackoff:120,now:()=>time});
+const task=()=>{calls++;return true;};
+await gate('a',task,{background:true});
+await gate('a',task,{background:true});assert.equal(calls,1);
+time=30;await gate('a',()=>{calls++;return false;},{background:true});
+time=89;await gate('a',task,{background:true});assert.equal(calls,2);
+time=90;await gate('a',task,{background:true});assert.equal(calls,3);
+await gate('a',task);assert.equal(calls,4);
+const pending=gate('b',()=>new Promise(r=>release=r));
+await Promise.resolve();
+await gate('c',task,{background:true});assert.equal(calls,4);
+const queued=gate('c',task);release(true);await pending;await queued;assert.equal(calls,5);
+await gate('d',()=>{throw Error('offline');});
+await gate('d',task,{background:true});assert.equal(calls,5);
+console.log('PASS: refresh cooldown, failure backoff, overlapping poll suppression, foreground queue and recovery.');

@@ -1,6 +1,6 @@
-export let language=localStorage.getItem('fillout-language')==='zh'?'zh':'en';
+export let language='en';try{language=localStorage.getItem('fillout-language')==='zh'?'zh':'en';}catch{}
 export const t=(en,zh)=>language==='zh'?zh:en;
-export function setLanguage(value){language=value==='zh'?'zh':'en';localStorage.setItem('fillout-language',language);document.documentElement.lang=language==='zh'?'zh-CN':'en';}
+export function setLanguage(value){language=value==='zh'?'zh':'en';try{localStorage.setItem('fillout-language',language);}catch{}document.documentElement.lang=language==='zh'?'zh-CN':'en';}
 export const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const word=n=>BigInt(n).toString(16).padStart(64,'0');
 export const hex=n=>'0x'+BigInt(n).toString(16);

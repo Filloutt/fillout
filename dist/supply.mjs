@@ -1,0 +1,4 @@
+export function remaining(cap,minted){return cap>minted?cap-minted:0n;}
+export function parseHolderCount(data){const n=data.holders_count;if(typeof n!=='string'&&typeof n!=='number')throw Error('Missing holder count');if(!/^\d+$/.test(String(n))||(typeof n==='number'&&!Number.isSafeInteger(n)))throw Error('Invalid holder count');return BigInt(n);}
+const cache=new Map();
+export async function collectionHolders(explorer,address){const key=explorer+address.toLowerCase();const old=cache.get(key);if(old&&Date.now()<old.until)return old.promise;const promise=(async()=>{const r=await fetch(explorer+'/api/v2/tokens/'+address,{signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('Explorer unavailable');return parseHolderCount(await r.json());})();cache.set(key,{until:Date.now()+60000,promise});return promise;}

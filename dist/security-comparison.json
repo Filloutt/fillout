@@ -1,0 +1,104 @@
+[
+  {
+    "collection": "OpenBook",
+    "role": "parts",
+    "address": "0xcAEacd999E09524A47CC790cc2AA65148DA2C484",
+    "immutables": {
+      "quoteCap": "78261",
+      "settleCap": "21739"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "FillOut",
+    "role": "parts",
+    "address": "0x700d8b2c19225CA05E3B0a7840ccEBfa0CC2D1E0",
+    "immutables": {
+      "quoteCap": "31304",
+      "settleCap": "8696"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "OpenBook",
+    "role": "desk",
+    "address": "0x71893bc051D74c521D6E9F3464cc6c155294e735",
+    "immutables": {
+      "parts": "0xcaeacd999e09524a47cc790cc2aa65148da2c484",
+      "treasury": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+      "unitPrice": "200000000000000",
+      "quoteCap": "78261",
+      "settleCap": "21739"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "FillOut",
+    "role": "desk",
+    "address": "0x1295c70dAE7B792368dbaC5a95D22B1eBD37086d",
+    "immutables": {
+      "parts": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0",
+      "treasury": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+      "unitPrice": "200000000000000",
+      "quoteCap": "31304",
+      "settleCap": "8696"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "OpenBook",
+    "role": "circuits",
+    "address": "0xd57Ad2d8AD81606Bd529D483EAfd50CdaA912ddE",
+    "immutables": {
+      "parts": "0xcaeacd999e09524a47cc790cc2aa65148da2c484"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "FillOut",
+    "role": "circuits",
+    "address": "0x1cc873CC2b86536aEdE951e54D2aDA6154018d95",
+    "immutables": {
+      "parts": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "OpenBook",
+    "role": "market",
+    "address": "0x9CD6694A2247243FABA441B1c434D0443318395e",
+    "immutables": {
+      "parts": "0xcaeacd999e09524a47cc790cc2aa65148da2c484",
+      "treasury": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+      "feeBps": "100"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  },
+  {
+    "collection": "FillOut",
+    "role": "market",
+    "address": "0x3541B64787F90930b2664551cb572a1717fB965B",
+    "immutables": {
+      "parts": "0x700d8b2c19225ca05e3b0a7840ccebfa0cc2d1e0",
+      "treasury": "0x7734306b68ffa63b03ed6e3aa05ed72a63106b71",
+      "feeBps": "100"
+    },
+    "fullRuntimeMatch": true,
+    "executableMatch": true,
+    "metadataMatches": true
+  }
+]
