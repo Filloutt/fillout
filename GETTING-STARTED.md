@@ -33,7 +33,7 @@ npm test
 - `dist/styles.css`: Visual styling and layout.
 - `dist/config.json`: Network settings and contract addresses for both collections.
 - `dist/index.html`: Application entry point.
-- `hosting-backup/hosting.json`: Connection information for the existing Sites project.
+- `dist/amounts.mjs`: Exact price and quantity validation without floating-point rounding.
 
 ## Hosting and domain
 
@@ -45,10 +45,11 @@ Do not commit hosting project IDs, registrar logins, or wallet keys.
 
 The site can be moved to another static host by publishing `dist/`. Test pages and wallet connection on the new URL before changing DNS. HTTPS is required.
 
-Contracts remain on the blockchain when the website moves; moving files does not remove or redeploy them. Four Solidity source files recovered from the preparation kit are included in `contracts/src`. They compiled successfully, but equivalence to the deployed bytecode and the original Remix deployment settings remain unverified. See [the contract source guide](contracts/README.md).
+Contracts remain on the blockchain when the website moves; moving files does not remove or redeploy them. Four Solidity source files recovered from the preparation kit are included in `contracts/src`. The recorded internal review reproduced full runtime bytecode matches for all eight configured contracts, including metadata. Both Circuits contracts received explorer exact-match confirmations on 27 September 2026; the six Parts, Desk and Market explorer confirmations remain pending. This does not constitute an independent security audit. See [the contract source guide](contracts/README.md).
 
 Wallet private keys, recovery phrases, account passwords and deployment credentials are not included. Do not share them in AI conversations or commit them to this repository.
 
 Studio drafts and some preferences are stored in the browser. Save important circuits using **Export draft** in Studio. Changing from the original site address to fillout.work does not automatically transfer browser drafts.
 
 Mainnet transactions use real ETH. The local tests validate simulation behavior; they do not establish the safety of every deployed contract operation.
+

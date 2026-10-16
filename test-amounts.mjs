@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {parsePositiveUnits,parsePositiveQuantity} from './dist/amounts.mjs';
+assert.equal(parsePositiveUnits('0.000000000000000001'),1n);
+assert.equal(parsePositiveUnits(' 0.0003 '),300000000000000n);
+assert.equal(parsePositiveUnits('12.345678901234567891'),12345678901234567891n);
+assert.equal(parsePositiveQuantity('9007199254740993'),9007199254740993n);
+assert.equal(parsePositiveQuantity(((1n<<256n)-1n).toString()),(1n<<256n)-1n);
+for(const value of ['', '0','-1','1e3','0x10','Infinity','NaN','1,2','1.2.3','.5','1.','0.0000000000000000001','9'.repeat(101)])assert.throws(()=>parsePositiveUnits(value),value);
+for(const value of ['1.5','1.0','1e2','-3','0',((1n<<256n)).toString()])assert.throws(()=>parsePositiveQuantity(value),value);
+console.log('PASS: exact wei and uint256 quantities; invalid, fractional and over-precision inputs rejected.');

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "test": "node scripts/check.mjs && node test-engine.mjs && node test-holdings-reader.mjs && node verify-examples.mjs"
+    "test": "node scripts/check.mjs && node test-amounts.mjs && node test-assets.mjs && node test-server.mjs && node test-engine.mjs && node test-holdings-reader.mjs && node verify-examples.mjs"
   }
 }
+
