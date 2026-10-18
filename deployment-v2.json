@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "release": "v2-20261018",
+  "chainId": 4663,
+  "status": "DEPLOYED_ACTIVE_MAINNET",
+  "owner": "0xEAF932dF3EaA0a0dff52afB97BFc95374907B614",
+  "treasury": "0xEAF932dF3EaA0a0dff52afB97BFc95374907B614",
+  "unitMintPriceWei": "50000000000000",
+  "mintPaymentRouting": "immediate-to-treasury",
+  "priceControl": "owner-only setUnitPrice; live price read before mint",
+  "marketFeeBps": 100,
+  "platformFeeModel": "network_estimate_plus_equal_platform_fee",
+  "collections": [
+    {
+      "name": "OpenBook",
+      "quoteCap": 78261,
+      "settleCap": 21739,
+      "parts": "0x47f7eFAC01dd53421CDCAD5c7662AfD997edcc4d",
+      "desk": "0x0A406E9a39d88c5d6208dD3F7bf147B44F21918c",
+      "circuits": "0x619Af4Bb17366AFA3c2d2247d1c88dbd37600030",
+      "market": "0xEc78e3c7b80A409b344C6a7278370a3E2d5103B5",
+      "deploymentTransactions": {
+        "parts": "0xdc8fcfd26a24b3bd02637943f245d1ff9fd9a4380c142bb261638df70c01b2cc",
+        "desk": "0x300875bf39df990736ca876dcc8665030927b4cd9abe4db472a8e996c654fda1",
+        "circuits": "0xeb2adf5eb1056ed40fa2fa7a5c9466086f84443265f0223850112bd16a7063ce",
+        "market": "0x247dac3f4c18e7a939c14156defcb6c8ed32d765070820a6522e20756a6b1fd2",
+        "transfer": "0x50422feb13251870058a394311ae2b15b4066b68de54349e39c29553b90295d3"
+      }
+    },
+    {
+      "name": "FillOut",
+      "quoteCap": 31304,
+      "settleCap": 8696,
+      "parts": "0x3c9A90776Ea892d72dFDf50A267a75cCD6102738",
+      "desk": "0xc6780e3352dcC2f7E18724345C1c3A2af88aacE8",
+      "circuits": "0x33AF5F16225ECd37cC5405F2c95E66bbbB7Cf7B3",
+      "market": "0x6f68D300DDDb34C3f229905B99356DE2AB72D95E",
+      "deploymentTransactions": {
+        "parts": "0x8b02d0a50a87f8b350d06c3be713383ecfe64ea3cf0272161c2c245ed7935f7c",
+        "desk": "0x830ee43aad79af96dff75cf0c5a2a6ea2b1c0c9c57c735c743db8602d692c4a7",
+        "circuits": "0x72bf441c049c0d12eb0f632d1fd5515554feef59b481d94562c42e576aa976f0",
+        "market": "0x363e667c24572bfc7be7097bfa4d3bb188ddbac4df3382131c09917078d40d31",
+        "transfer": "0x7b4115cd30bb3970b488cfafada64201e17ad6bfb74cb838df4706b791f40a94"
+      }
+    }
+  ]
+}

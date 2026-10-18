@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {assertTransactionContext} from './dist/transaction-context.mjs';
+const sender='0x'+'a'.repeat(40);
+const provider=(accounts,chain)=>({request:async({method})=>method==='eth_accounts'?accounts:chain});
+await assertTransactionContext(provider([sender.toUpperCase()],'0x1237'),sender,4663);
+await assert.rejects(assertTransactionContext(provider([],'0x1237'),sender,4663),/account changed/);
+await assert.rejects(assertTransactionContext(provider(['0x'+'b'.repeat(40)],'0x1237'),sender,4663),/account changed/);
+await assert.rejects(assertTransactionContext(provider([sender],'0x1'),sender,4663),/network changed/);
+await assert.rejects(assertTransactionContext({request:async()=>{throw Error('Wallet unavailable');}},sender,4663),/Wallet unavailable/);
+console.log('PASS: changed accounts, changed networks and unavailable wallets block transaction preparation.');

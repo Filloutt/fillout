@@ -1,77 +1,38 @@
-# FillOut
+# FillOut V2
 
-Circuit workspace and marketplace for OpenBook and FillOut on Robinhood Chain.
+Circuit workspace, minting and marketplace for OpenBook and FillOut on Robinhood Chain mainnet (4663).
 
-Website: https://fillout.work
+New application address: https://app.fillout.work (DNS/SSL activation is managed separately). Sites origin: https://fillout.stableflint1.chatgpt.site.
 
-See [Getting started](GETTING-STARTED.md) for the file guide, local setup and instructions for continuing development with another assistant.
+## V2 release · 18 October 2026
 
-## Learn to build circuits
+- Launch mint price: **0.00005 ETH per part**. The owner can update it; the mint page reads the current contract price.
+- Mint price and any platform fee are forwarded directly to the treasury in the mint transaction. No claim is needed. Wallet gas is separate.
+- OpenBook caps: 78,261 Quote / 21,739 Settle. FillOut caps: 31,304 Quote / 8,696 Settle.
+- Marketplace fee: 1% of sale value.
+- New contracts only; no migration of old balances or listings.
 
-Start with the [Circuit guide](CIRCUIT-GUIDE.md): parts, wiring, truth tables, memory, simulation and circuit NFT creation.
+Owner and treasury: 0xEAF932dF3EaA0a0dff52afB97BFc95374907B614.
 
-| Resource | What you will learn |
-| --- | --- |
-| [Circuit guide](CIRCUIT-GUIDE.md) | How Quote and Settle work, with diagrams and worked examples |
-| [NAND draft](example-nand.json) | Two inputs, one Quote, one output |
-| [NOT draft](example-not.json) | Invert a bit using one Quote |
-| [XOR draft](example-xor.json) | Build exclusive OR using four Quotes |
-| [Memory draft](example-memory.json) | Store one bit using one Settle |
-| [Roadmap](ROADMAP.md) | Proposed challenges, circuit evaluation and VRAM rewards |
+| Collection | Contract | Address |
+| --- | --- | --- |
+| OpenBook | parts | [0x47f7eFAC01dd53421CDCAD5c7662AfD997edcc4d](https://robinhoodchain.blockscout.com/address/0x47f7eFAC01dd53421CDCAD5c7662AfD997edcc4d) |
+| OpenBook | desk | [0x0A406E9a39d88c5d6208dD3F7bf147B44F21918c](https://robinhoodchain.blockscout.com/address/0x0A406E9a39d88c5d6208dD3F7bf147B44F21918c) |
+| OpenBook | circuits | [0x619Af4Bb17366AFA3c2d2247d1c88dbd37600030](https://robinhoodchain.blockscout.com/address/0x619Af4Bb17366AFA3c2d2247d1c88dbd37600030) |
+| OpenBook | market | [0xEc78e3c7b80A409b344C6a7278370a3E2d5103B5](https://robinhoodchain.blockscout.com/address/0xEc78e3c7b80A409b344C6a7278370a3E2d5103B5) |
+| FillOut | parts | [0x3c9A90776Ea892d72dFDf50A267a75cCD6102738](https://robinhoodchain.blockscout.com/address/0x3c9A90776Ea892d72dFDf50A267a75cCD6102738) |
+| FillOut | desk | [0xc6780e3352dcC2f7E18724345C1c3A2af88aacE8](https://robinhoodchain.blockscout.com/address/0xc6780e3352dcC2f7E18724345C1c3A2af88aacE8) |
+| FillOut | circuits | [0x33AF5F16225ECd37cC5405F2c95E66bbbB7Cf7B3](https://robinhoodchain.blockscout.com/address/0x33AF5F16225ECd37cC5405F2c95E66bbbB7Cf7B3) |
+| FillOut | market | [0x6f68D300DDDb34C3f229905B99356DE2AB72D95E](https://robinhoodchain.blockscout.com/address/0x6f68D300DDDb34C3f229905B99356DE2AB72D95E) |
 
-Download an example as a raw JSON file and import it in the Studio. Simulating these drafts is local and does not require minting. Creating a circuit NFT is a separate mainnet transaction.
+## Develop
 
-**Network:** Robinhood Chain mainnet, chain ID **4663**. ETH is used for gas; this is not Ethereum L1.
+Node.js 22 or newer: run npm start and open http://127.0.0.1:8080. Run npm test for public-app checks. No wallet transactions are performed by tests.
 
-**Status:** circuit editing, simulation and NFT creation exist. Challenges, power scoring and VRAM rewards are planned and are not implemented by this documentation update.
+Run npm ci and npm run test:security in contracts/ for local adversarial contract checks. See [contract settings](contracts/README.md), [current evidence](TRANSPARENCY.md), [contract references](docs/contracts.md), [circuit guide](CIRCUIT-GUIDE.md) and [getting started](GETTING-STARTED.md).
 
-## Features
+The public app is in dist/. Private Sites analytics administration is managed in the Sites source repository, not this public repository. Pushing to GitHub does not deploy Sites automatically.
 
-- Quote (NAND) and Settle (one-bit memory) circuit editor.
-- Local simulation, draft import/export and circuit NFT creation.
-- Independent OpenBook and FillOut minting and markets.
-- Wallet holdings and contract references.
-- English and Simplified Chinese interfaces.
+Simulation, draft import/export, minting, separate collection markets and circuit NFT creation are available. Circuit NFTs permanently lock parts. VRAM/reward features remain planned. English and Simplified Chinese are supported.
 
-## Run locally
-
-Requires Node.js 22 or newer. No dependency installation is needed.
-
-```sh
-npm start
-```
-
-Open http://127.0.0.1:8080. Browser wallets and RPC access are needed for blockchain operations. The configured network is mainnet (chain ID 4663); local preview does not turn transactions into test transactions.
-
-```sh
-npm test
-```
-
-Tests check JavaScript syntax, NAND truth tables, memory transitions, binary encoding and invalid circuits. They do not submit wallet transactions or audit deployed contracts.
-
-## Project layout
-
-`dist/` contains the editable static application, including the local simulation engine and public chain configuration. `test-engine.mjs` exercises circuit logic. `scripts/` contains local development tools. `docs/contracts.md` records collection addresses and supply caps.
-
-## Deployment
-
-The live website is hosted on Sites. This repository is a source snapshot and development home; pushing to GitHub does not automatically deploy the live website. Publish reviewed changes through the existing Sites project. Do not change domain DNS to GitHub Pages unless intentionally migrating hosting.
-
-## Security & transparency
-
-Read the [internal review and evidence](TRANSPARENCY.md) for source matching, administrator permissions, money flows and unresolved verification items. This is not an independent audit.
-
-## Contracts and source status
-
-See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. The internal review now records full runtime matches for all eight contracts, including metadata; the earlier Circuits mismatch was resolved by reproducing LF source line endings; see TRANSPARENCY.md for method and limits. FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight. Compilation is not a security audit.
-
-Creating a circuit NFT permanently locks the required parts in the selected collection's circuit contract. Browser drafts are stored locally and should be exported for backup.
-
-## License
-
-All rights reserved. See [LICENSE](LICENSE).
-Public visibility is not a grant to reuse this code.
-
-Security reports: see [SECURITY.md](SECURITY.md).
-
-
+No independent audit or confirmed explorer source verification is claimed for V2. All rights reserved; see LICENSE.
