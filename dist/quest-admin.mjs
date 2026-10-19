@@ -1,0 +1,9 @@
+const root=document.querySelector('#quest-review');
+if(root){
+ const status=root.querySelector('[role=status]'),list=root.querySelector('.quest-list');
+ async function request(path,body){const r=await fetch('/api/admin/quests'+path,{credentials:'same-origin',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});const v=await r.json();if(!r.ok)throw Error(v.error||'İşlem başarısız.');return v;}
+ async function load(){try{const data=await request('');list.replaceChildren();for(const row of data.submissions){const item=document.createElement('article');item.className='panel';const address=document.createElement('p');address.textContent=row.address;const post=document.createElement('a');post.href=row.post_url;post.target='_blank';post.rel='noopener noreferrer';post.textContent='@'+row.x_username+' · Postu incele ↗';const info=document.createElement('p');info.textContent=new Date(row.created_at).toLocaleString('tr-TR')+' · '+row.status+' · API: '+row.api_status;item.append(address,post,info);for(const [action,label]of [['approve','Manuel onayla'],['reject','Reddet']]){const b=document.createElement('button');b.textContent=label;b.onclick=async()=>{b.disabled=true;try{await request('/review',{id:row.id,action});await load();status.textContent='İnceleme kaydedildi.';}catch(e){status.textContent=e.message;b.disabled=false;}};item.append(b);}list.append(item);}status.textContent=data.submissions.length+' başvuru gösteriliyor (en yeni 500).';}catch(e){status.textContent=e.message;}}
+ root.querySelector('[data-load]').onclick=load;
+ root.querySelector('[data-publish]').onclick=async()=>{try{const r=await request('/publish',{});status.textContent=r.eligibleCount+' onaylı adres Checker için yayımlandı.';}catch(e){status.textContent=e.message;}};
+ load();
+}

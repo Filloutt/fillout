@@ -1,21 +1,11 @@
 # Security
 
-FillOut talks to Robinhood Chain mainnet. Creating a circuit NFT
-locks parts permanently. The internal runtime comparison matched both Parts, Desk and Market contracts completely (six contracts). Both Circuits contracts now also match completely, including metadata, after recovering the LF source line endings. Both Circuits contracts received explorer exact-match confirmations on 27 September 2026: FillOut (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) and OpenBook (0xd57Ad2d8AD81606Bd529D483EAfd50CdaA912ddE). The six Parts, Desk and Market contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight. See [TRANSPARENCY.md](TRANSPARENCY.md) for the dated evidence and limitations. No independent audit has been performed.
+No independent audit is claimed. Mint, burn and mining are inactive. Report vulnerabilities privately to the maintainers before publishing exploit details; routine issues can be filed at https://github.com/Filloutt/fillout/issues. Never post secrets or participant records.
 
-## Report privately
+Wallet connection requests an address and a readable message signature, verified against that address. It does not authorize transactions or token transfers. A manually entered quest address proves no ownership.
 
-Do not open a public issue for wallet or key exposure, contract
-theft or freeze paths, host takeover, or anything that can drain
-or lock funds.
+Quest applications are stored server-side. Same-origin checks, bounded bodies, HttpOnly sessions and unique address/post constraints reduce abuse. Clicking Verify is not proof of follow, like, repost or account ownership. The owner must inspect those tasks manually. Deleted or invalid posts must be rejected. API integration is optional; without it manual approval is sufficient for publication. Rejection removes eligibility even after publication. New approvals become visible once campaign results have been published.
 
-Use GitHub Security Advisories:
-https://github.com/Filloutt/fillout/security/advisories/new
+Admin endpoints require the hosting platform's authenticated owner identity. The public source requires a deployment-specific owner email; it contains no personal owner identity. The platform must strip untrusted identity headers. Do not expose the Worker behind a proxy that accepts spoofed authentication headers.
 
-## Out of scope for now
-
-- copy and layout
-- local simulation bugs that cannot be submitted on chain
-- third-party wallet bugs
-
-There is no bug bounty yet.
+Compiler checks cover structure, dependencies and Boolean execution, not semantic uniqueness or smart-contract safety. Before paid mint disclose owner, upgrade, pause, pricing, supply and withdrawal powers, addresses and single-key/multisig control. Team policy is not technically enforced unless final code does so.

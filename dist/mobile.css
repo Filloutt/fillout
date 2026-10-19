@@ -1,0 +1,35 @@
+/* Phone layout: keep navigation visible and controls clear of the artwork. */
+@media(max-width:700px){
+ html{scrollbar-gutter:auto}
+ html body[data-page] header.app-header{height:auto!important;min-height:108px!important;padding:14px 16px 10px!important;gap:12px!important;flex-wrap:wrap!important;background-size:auto 650px!important}
+ html body[data-page] header.app-header .brand{font-size:26px!important;order:0!important;margin:0!important}
+ html body[data-page] header.app-header #wallet-connect{font-size:12px!important;padding:10px!important;min-height:40px}
+ html body[data-page] header.app-header .connected-wallet-control{margin-left:auto!important;order:1!important}
+ html body[data-page] header.app-header nav{order:2!important;flex:1 0 100%!important;width:100%!important;overflow:visible!important;display:flex!important;justify-content:space-between!important;gap:2px!important;margin:0!important}
+ html body[data-page] header.app-header nav a{font-size:13px!important;letter-spacing:0!important;padding:10px 6px!important;min-height:38px;display:grid;place-items:center}
+ html body:not([data-page=studio]) main{min-height:0!important;padding:20px 12px 28px!important;width:100%!important}
+ html body[data-page=home] main{padding:18px 10px 24px!important}
+ html body[data-page=home] .home-hero{margin:0!important;padding:0 0 86px!important;overflow:visible!important}
+ html body[data-page=home] .home-image{width:100%!important;height:auto!important;display:block!important}
+ html body[data-page=home] .home-checker-entry{top:auto!important;bottom:12px!important;left:8px!important;right:auto!important;transform:none!important;width:140px!important;height:48px!important;font-size:12px!important;padding:10px!important;display:flex;align-items:center;justify-content:center;gap:6px}
+ html body[data-page=home] .home-art-link{top:auto!important;bottom:12px!important;right:8px!important;left:auto!important;transform:none!important;width:150px!important;height:48px!important;font-size:13px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important}
+ html body[data-page=home] .studio-invite{font-size:13px!important;line-height:1.1!important;position:static!important;transform:none!important}
+ html body[data-page=home] .studio-invite br{display:none}
+ html body[data-page=home] .studio-invite strong{font-size:14px!important;margin-left:4px}
+ html body[data-page=home] .studio-arrow{position:static!important;font-size:20px!important;transform:none!important}
+ html body[data-page=home] .studio-scribble{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
+ html body[data-page=home] .connect-circuit,html body[data-page=home] .circuit-status,html body[data-page=home] .studio-spark{display:none!important}
+ html body[data-page=home] .quest-entry{width:90px!important;height:73px!important;left:5%!important;top:44%!important;transform:none!important}
+ html body[data-page=home] .quest-entry-title{font-size:12px!important}
+ html body:not([data-page=studio]) footer.global-resources{margin:0!important;min-height:0!important;padding:20px 16px!important;gap:14px!important;display:flex!important;flex-wrap:wrap!important}
+ html body:not([data-page=studio]) footer.global-resources a{font-size:12px!important;line-height:1.5;white-space:normal}
+ html body:not([data-page=studio]) footer.global-resources .footer-brand{width:100%}
+ html body[data-page=quests] header.app-header{min-height:68px!important}
+ .wp-layout{display:block!important}.wp-toc{position:static!important;width:100%!important}.wp-content{min-width:0!important}.wp-content table{display:block;overflow-x:auto}.wp-content pre{overflow-x:auto;max-width:100%}
+ .wallet-picker{padding:20px!important;max-height:80svh!important}.connected-wallet-actions{max-width:calc(100vw - 32px)}
+}
+@media(max-width:360px){
+ html body[data-page] header.app-header nav a{font-size:11px!important;padding:10px 4px!important}
+ html body[data-page=home] .home-checker-entry,html body[data-page=home] .home-art-link{width:calc(50% - 16px)!important;font-size:11px!important}
+ html body[data-page=home] .studio-invite,html body[data-page=home] .studio-invite strong{font-size:11px!important}
+}

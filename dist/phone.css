@@ -1,0 +1,27 @@
+.phone-home{display:none}
+@media(max-width:900px){
+ html body[data-page] header.app-header{background:#090908!important;border-bottom:1px solid #3b392d!important;height:auto!important;min-height:110px!important;flex-wrap:wrap!important;padding:16px!important;gap:12px!important}
+ html body[data-page] header.app-header .brand{font-size:25px!important}
+ html body[data-page] header.app-header nav{order:3!important;flex:1 0 100%!important;width:100%!important;gap:4px!important;overflow:visible!important;justify-content:space-between!important}
+ html body[data-page] header.app-header nav a{font-size:13px!important;padding:10px 4px!important;letter-spacing:0!important}
+ html body[data-page] header.app-header #wallet-connect{font-size:12px!important;min-height:40px;padding:10px!important}
+ html body[data-page=home] main{min-height:0!important;padding:34px 22px!important;background:#090908!important;border:0!important;box-shadow:none!important}
+ html body[data-page=home] main:before,html body[data-page=home] main:after,html body[data-page=home]:before,html body[data-page=home]:after{display:none!important}
+ html body[data-page=home] .home-hero,html body[data-page=home] .home-bottom{display:none!important}
+ html body[data-page=home] .phone-home{display:block!important;margin:0!important;padding:0!important;background:none!important;border:0!important}
+ .phone-label{font:10px/1.5 'Pixelify Sans',monospace;color:#94907d;letter-spacing:2px;margin:0 0 20px}
+ .phone-home h1{font:700 54px/1 'Pixelify Sans',monospace!important;letter-spacing:-1px!important;margin:0!important;color:#e0dac3!important;transform:none!important}
+ .phone-home h1 span{color:#e4d76c!important}
+ .phone-intro{font:16px/1.6 'Pixelify Sans',monospace;color:#aca58f;margin:16px 0 30px}
+ .phone-links{display:grid;gap:12px}
+ .phone-links a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:17px 16px;border:1px solid #57513b;background:#11110d;color:#e1d9b9;font:18px/1.3 'Pixelify Sans',monospace;text-decoration:none}
+ .phone-links a:first-child{border-color:#b5a65b;color:#eee095}
+ .phone-links a:active{background:#282519}
+ .phone-links a:last-child{flex-wrap:wrap;font-size:16px}
+ .phone-links small{font-size:11px;color:#aaa28a}
+ html body[data-page=home] footer.global-resources{background:#090908!important;border-top:1px solid #302e24!important;padding:22px!important;margin:0!important;min-height:0!important;display:flex!important;flex-wrap:wrap!important;gap:16px!important}
+ html body[data-page=home] footer.global-resources:before,html body[data-page=home] footer.global-resources:after{display:none!important}
+ html body[data-page=home] footer.global-resources a{font-size:12px!important}
+ html body[data-page=quests] header.app-header{min-height:65px!important}
+}
+@media(max-width:360px){html body[data-page] header.app-header nav a{font-size:11px!important;padding:10px 3px!important}.phone-home h1{font-size:46px!important}.phone-links a:last-child{display:grid;gap:6px}}

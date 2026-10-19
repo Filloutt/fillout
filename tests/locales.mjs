@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {setLanguage} from '../dist/ui.mjs';
+import {createConnectionMessage,confirmConnection} from '../dist/connection-message.mjs';
+import {renderWhitepaper} from '../dist/technical-whitepaper.mjs';
+import {Wallet,getBytes} from '../dist/ethers.mjs';
+globalThis.document={documentElement:{lang:'en'}};globalThis.location={origin:'https://app.fillout.work'};
+setLanguage('en');const english=renderWhitepaper();setLanguage('zh');const chinese=renderWhitepaper();
+const ids=html=>[...html.matchAll(/<section id="([^"]+)"/g)].map(m=>m[1]);assert.deepEqual(ids(chinese),ids(english));assert.equal(ids(chinese).length,18);
+for(const n of ['150,000','140,000','10,000','109,566','30,434','117,392','32,608','0.00005 ETH','50%','512'])assert.ok(chinese.includes(n),n);
+const wallet=Wallet.createRandom();let requested=[];
+await confirmConnection({request:async({method,params})=>{requested.push(method);if(method==='personal_sign'){const text=new TextDecoder().decode(getBytes(params[0]));assert.ok(text.includes('网站：https://app.fillout.work'));assert.ok(text.includes('不授权交易'));assert.ok(!text.includes('Website:'));return wallet.signMessage(getBytes(params[0]));}if(method==='eth_accounts')return [wallet.address];throw Error('Unexpected request');}},wallet.address,()=>true);
+assert.deepEqual(requested,['personal_sign','eth_accounts']);setLanguage('en');assert.ok(createConnectionMessage({origin:location.origin,account:wallet.address,nonce:'0'.repeat(32),issuedAt:'2026-10-19'}).includes('Website:'));
+console.log('Localization checks passed: 18 matched sections, preserved protocol values, Chinese signed connection and English restoration.');

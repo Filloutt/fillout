@@ -1,14 +1,14 @@
 {
   "name": "fillout",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
-  "license": "UNLICENSED",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "test": "node scripts/check.mjs && node test-engine.mjs && node test-holdings-reader.mjs && node verify-examples.mjs"
+    "test": "node scripts/check-release.mjs",
+    "build": "node scripts/build-release.mjs"
   }
 }

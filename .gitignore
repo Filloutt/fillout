@@ -4,10 +4,7 @@ node_modules/
 !.env.example
 *.log
 *.tar.gz
-.DS_Store
-.sites-runtime/
 .openai/
 dist/.openai/
-contracts/artifacts/
-
-contracts/test-cache/
+dist/server/
+.sites-runtime/

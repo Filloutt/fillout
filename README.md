@@ -1,77 +1,42 @@
 # FillOut
 
-Circuit workspace and marketplace for OpenBook and FillOut on Robinhood Chain.
+A visual circuit studio for logic, memory and circuit ownership.
 
-Website: https://fillout.work
+**Application:** https://app.fillout.work · **X:** https://x.com/Fillout_rh
 
-See [Getting started](GETTING-STARTED.md) for the file guide, local setup and instructions for continuing development with another assistant.
+## Current release
 
-## Learn to build circuits
+The Studio, English/Chinese interface, wallet connection, social applications and manually reviewed whitelist are implemented. Paid mint, irreversible burn-to-build and VRAM mining are **not active**. No production contract addresses are published for this release.
 
-Start with the [Circuit guide](CIRCUIT-GUIDE.md): parts, wiring, truth tables, memory, simulation and circuit NFT creation.
+| Allocation | Quote | Settle | Total |
+|---|---:|---:|---:|
+| Public | 109,566 | 30,434 | 140,000 |
+| Team circuit allocation | 7,826 | 2,174 | 10,000 |
+| Lifetime maximum | 117,392 | 32,608 | 150,000 |
 
-| Resource | What you will learn |
-| --- | --- |
-| [Circuit guide](CIRCUIT-GUIDE.md) | How Quote and Settle work, with diagrams and worked examples |
-| [NAND draft](example-nand.json) | Two inputs, one Quote, one output |
-| [NOT draft](example-not.json) | Invert a bit using one Quote |
-| [XOR draft](example-xor.json) | Build exclusive OR using four Quotes |
-| [Memory draft](example-memory.json) | Store one bit using one Settle |
-| [Roadmap](ROADMAP.md) | Proposed challenges, circuit evaluation and VRAM rewards |
+Planned price: **0.00005 ETH per part**, plus gas. USD equivalents vary. Target: Robinhood Chain mainnet, chain ID 4663 ([official network documentation](https://docs.robinhood.com/chain/connecting/)).
 
-Download an example as a raw JSON file and import it in the Studio. Simulating these drafts is local and does not require minting. Creating a circuit NFT is a separate mainnet transaction.
+Quote is a NAND gate; Settle is one-bit state. The planned circuit factory burns parts permanently. OpenBook is a later airdrop; VRAM economics and verification require a separate final specification.
 
-**Network:** Robinhood Chain mainnet, chain ID **4663**. ETH is used for gas; this is not Ethereum L1.
+- [Protocol decisions and open questions](docs/PROTOCOL-SPEC.md)
+- [English and Chinese whitepaper](docs/WHITEPAPER.md)
+- [Security](SECURITY.md) · [Transparency](TRANSPARENCY.md)
+- [Roadmap](ROADMAP.md) · [Release readiness](RELEASE-READINESS.md)
+- [Structured parameters](docs/release-spec.json)
 
-**Status:** circuit editing, simulation and NFT creation exist. Challenges, power scoring and VRAM rewards are planned and are not implemented by this documentation update.
+## Development
 
-## Features
-
-- Quote (NAND) and Settle (one-bit memory) circuit editor.
-- Local simulation, draft import/export and circuit NFT creation.
-- Independent OpenBook and FillOut minting and markets.
-- Wallet holdings and contract references.
-- English and Simplified Chinese interfaces.
-
-## Run locally
-
-Requires Node.js 22 or newer. No dependency installation is needed.
-
-```sh
-npm start
-```
-
-Open http://127.0.0.1:8080. Browser wallets and RPC access are needed for blockchain operations. The configured network is mainnet (chain ID 4663); local preview does not turn transactions into test transactions.
+Node.js 22 or newer; no package installation is needed for the static preview or tests.
 
 ```sh
 npm test
+npm start
 ```
 
-Tests check JavaScript syntax, NAND truth tables, memory transitions, binary encoding and invalid circuits. They do not submit wallet transactions or audit deployed contracts.
+The preview serves `dist/` on `http://127.0.0.1:8088`. It does not emulate authenticated hosting or the database. Quest APIs require a Worker with D1, the SQL migrations in `drizzle/`, and trusted owner identity supplied by the hosting platform. Never accept identity headers directly from an untrusted public proxy.
 
-## Project layout
+`npm run build` requires `FILL_OUT_ADMIN_EMAIL` in the build environment and an existing hosting manifest at `.openai/hosting.json`. Hosting IDs and generated Worker bundles are intentionally excluded from Git. `X_BEARER_TOKEN` is an optional runtime secret; manual review works without it. Never commit credentials or participant records.
 
-`dist/` contains the editable static application, including the local simulation engine and public chain configuration. `test-engine.mjs` exercises circuit logic. `scripts/` contains local development tools. `docs/contracts.md` records collection addresses and supply caps.
+`docs/index.html`, `docs/404.html` and `docs/CNAME` retain the root-domain redirect. GitHub Pages serves that directory, not the application backend. This repository is the application source; pushing it alone does not deploy the hosted application.
 
-## Deployment
-
-The live website is hosted on Sites. This repository is a source snapshot and development home; pushing to GitHub does not automatically deploy the live website. Publish reviewed changes through the existing Sites project. Do not change domain DNS to GitHub Pages unless intentionally migrating hosting.
-
-## Security & transparency
-
-Read the [internal review and evidence](TRANSPARENCY.md) for source matching, administrator permissions, money flows and unresolved verification items. This is not an independent audit.
-
-## Contracts and source status
-
-See [contract references](docs/contracts.md) and [recovered Solidity sources](contracts/README.md). Four contract source files were recovered from the original preparation kit and successfully compiled locally. The internal review now records full runtime matches for all eight contracts, including metadata; the earlier Circuits mismatch was resolved by reproducing LF source line endings; see TRANSPARENCY.md for method and limits. FillOut Circuits (0x1cc873CC2b86536aEdE951e54D2aDA6154018d95) received an explorer exact-match confirmation on 27 September 2026. Other configured contracts remain unconfirmed in the explorer; local runtime matching is complete for all eight. Compilation is not a security audit.
-
-Creating a circuit NFT permanently locks the required parts in the selected collection's circuit contract. Browser drafts are stored locally and should be exported for backup.
-
-## License
-
-All rights reserved. See [LICENSE](LICENSE).
-Public visibility is not a grant to reuse this code.
-
-Security reports: see [SECURITY.md](SECURITY.md).
-
-
+Obsolete contracts, addresses and deployment evidence were removed from the current tree. Git history remains available; old commits do not specify the current release.

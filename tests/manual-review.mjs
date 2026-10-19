@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {makeQuestHandler} from '../server/quests.mjs';
+const row={id:'application-1',address:'0x'+'1'.repeat(40),post_url:'https://x.com/example/status/123',manual_status:'pending',status:'pending'};
+let published=false;
+const DB={prepare(sql){let args;return {bind(...v){args=v;return this;},async first(){if(sql.includes('quest_campaign'))return {published:published?1:0};if(sql.includes("status='approved'"))return row.status==='approved'?row:null;return row;},async all(){return {results:row.status==='approved'?[row]:[]};},async run(){if(sql.startsWith('UPDATE')){row.api_status=args[0];row.manual_status=args[1];row.status=args[2];}if(sql.startsWith('INSERT INTO quest_campaign'))published=true;return {};}};}};
+const handler=makeQuestHandler({isAdmin:r=>r.headers.get('Authorization')==='owner'});
+const req=(path,body,owner=true)=>new Request('https://app.fillout.work'+path,{method:body?'POST':'GET',headers:{Origin:'https://app.fillout.work','Content-Type':'application/json',...(owner?{Authorization:'owner'}:{})},...(body?{body:JSON.stringify(body)}:{})});
+assert.equal((await handler(req('/api/admin/quests/review',{id:row.id,action:'approve'},false),{DB})).status,403);
+assert.equal((await handler(req('/api/admin/quests/review',{id:row.id,action:'approve'}),{DB})).status,200);assert.equal(row.status,'approved');
+assert.equal((await handler(req('/api/admin/quests/publish',{}),{DB})).status,200);assert.equal(published,true);
+assert.equal((await (await handler(req('/api/quests/eligibility?address='+row.address),{DB})).json()).eligible,true);
+await handler(req('/api/admin/quests/review',{id:row.id,action:'reject'}),{DB});
+assert.equal((await (await handler(req('/api/quests/eligibility?address='+row.address),{DB})).json()).eligible,false);
+console.log('Manual review: unauthorized blocked; approve/publish without API; rejection removes eligibility.');

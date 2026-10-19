@@ -1,0 +1,67 @@
+{
+  "revision": "2026-10-19",
+  "site": "https://app.fillout.work",
+  "network": {
+    "name": "Robinhood Chain",
+    "chainId": 4663
+  },
+  "fillout": {
+    "totalLifetimeIssuance": 150000,
+    "publicMintAllocation": 140000,
+    "teamAllocation": 10000,
+    "quoteCap": 117392,
+    "settleCap": 32608,
+    "publicQuote": 109566,
+    "publicSettle": 30434,
+    "teamQuote": 7826,
+    "teamSettle": 2174,
+    "unitPriceWei": "50000000000000",
+    "pricePolicy": "0.00005 ETH fixed; fiat equivalents vary",
+    "status": "not-deployed-for-this-release"
+  },
+  "circuits": {
+    "partsTreatment": "irreversible-burn",
+    "mixedCollectionsRequired": false,
+    "mintedCountersResetOnBurn": false,
+    "hashIdentity": "exact encoded bytes only; not functional equivalence"
+  },
+  "openbook": {
+    "distribution": "airdrop",
+    "announcement": "after FillOut mint",
+    "eligibilityInputs": [
+      "verified social participation",
+      "FillOut holding quantity"
+    ],
+    "quantityThresholds": null,
+    "supply": null,
+    "burnedPartsSnapshotPolicy": "must be published before burn activation or qualifying snapshot"
+  },
+  "vram": {
+    "role": "planned ecosystem mining reward token",
+    "status": "not-live",
+    "processorTiers": {
+      "FillOut": "higher-weight genesis tier",
+      "OpenBook": "base tier"
+    },
+    "weightRatio": null,
+    "supply": null,
+    "emissionSchedule": null
+  },
+  "team": {
+    "vesting": false,
+    "sellParts": false,
+    "use": "circuit construction",
+    "rewards": {
+      "liquidityBps": 5000,
+      "operationsAndCommunityBps": 5000,
+      "execution": "manual",
+      "automaticLiquidity": false
+    },
+    "policyEnforcement": "team commitment unless explicitly implemented in a published contract"
+  },
+  "productionContracts": null,
+  "quests": {
+    "reviewMode": "manual",
+    "apiOptional": true
+  }
+}
