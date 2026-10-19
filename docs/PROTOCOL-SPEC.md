@@ -28,4 +28,4 @@ Planned reward token, not live. FillOut is intended as a higher-weight tier; Ope
 
 ## Launch requirements
 
-Publish source, deployment addresses, permissions, signing authority, independent security review and remediation before paid mint. Mining requires its own economic and verifier specification. No historical deployment implements or certifies this release. No automatic migration or compensation is promised for historical balances.
+Publish source, deployment addresses, permissions, signing authority, independent security review and remediation before paid mint. Mining requires its own economic and verifier specification. Contract addresses and launch parameters will be published before activation.

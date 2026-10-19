@@ -6,4 +6,4 @@
 4. After FillOut mint: publish OpenBook eligibility, snapshot and distribution details.
 5. Before VRAM activation: utility, supply/emissions, scoring, verifier authority, appeals, abuse resistance and independent review.
 
-No fixed delivery dates or financial returns are promised. Earlier contract versions are not the current implementation.
+No fixed delivery dates or financial returns are promised. Deployment parameters will be published before activation.

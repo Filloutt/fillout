@@ -1,6 +1,6 @@
 # Transparency
 
-This tree contains current application source and planned protocol parameters. No current production token, circuit factory or mining address exists. Removed historical artifacts remain in Git history only and are not launch evidence.
+This tree contains current application source and planned protocol parameters. No current production token, circuit factory or mining address exists. Contract addresses will be published when deployment is complete.
 
 Implemented: visual editor and simulator, bilingual website, wallet acknowledgement, server-side social applications, manual owner review and published address eligibility. X API checks are optional and not currently configured. Automated identity/follow/like/repost verification is not implemented.
 
