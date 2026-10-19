@@ -19,7 +19,8 @@ Planned price: **0.00005 ETH per part**, plus gas. USD equivalents vary. Target:
 Quote is a NAND gate; Settle is one-bit state. The planned circuit factory burns parts permanently. OpenBook is a later airdrop; VRAM economics and verification require a separate final specification.
 
 - [Protocol decisions and open questions](docs/PROTOCOL-SPEC.md)
-- [English and Chinese whitepaper](docs/WHITEPAPER.md)
+- [Full English whitepaper](docs/WHITEPAPER.md) · [完整中文白皮书](docs/WHITEPAPER-zh.md)
+- [Repository file guide](docs/REPOSITORY-MAP.md)
 - [Security](SECURITY.md) · [Transparency](TRANSPARENCY.md)
 - [Roadmap](ROADMAP.md) · [Release readiness](RELEASE-READINESS.md)
 - [Structured parameters](docs/release-spec.json)

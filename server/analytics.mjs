@@ -4,7 +4,7 @@ const NO_CACHE={'Cache-Control':'private, no-store','Vary':'Cookie','X-Content-T
 const json=(value,status=200)=>new Response(JSON.stringify(value),{status,headers:{...NO_CACHE,'Content-Type':'application/json; charset=utf-8'}});
 export function isAdmin(request){return !!ADMIN_EMAIL&&!!request.headers.get('oai-authenticated-user-id')&&request.headers.get('oai-authenticated-user-email')?.toLowerCase()===ADMIN_EMAIL;}
 const uuid=value=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(value);
-export function validRoute(value){return typeof value==='string'&&/^(projects|eligibility|studio|market|wallet|airdrop|data|whitepaper|guide|foundry|(?:openbook|fillout|mint)-[01]|market-(?:openbook|fillout)(?:-[01])?)$/.test(value);}
+export function validRoute(value){return typeof value==='string'&&/^(home|studio|mint|mint-fillout|inventory|whitepaper|quests|checker|transparency)$/.test(value);}
 async function hash(value){return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))),b=>b.toString(16).padStart(2,'0')).join('');}
 function db(env){if(!env.DB)throw Error('Analytics database unavailable');return env.DB;}
 async function collect(request,env,ctx){

@@ -3,6 +3,12 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {compile,step,encode,template} from '../dist/engine.mjs';
+import {validRoute} from '../server/analytics.mjs';
+for(const route of ['home','studio','mint','mint-fillout','inventory','whitepaper','quests','checker','transparency'])assert(validRoute(route),route);
+for(const route of ['openbook-0','openbook-1','market-openbook','data','foundry'])assert(!validRoute(route),'Obsolete analytics route: '+route);
+const studioSource=fs.readFileSync('dist/studio.mjs','utf8');
+assert(!studioSource.includes('<option value="openbook">'),'OpenBook is not an active construction collection');
+for(const match of fs.readFileSync('server/admin.html','utf8').matchAll(/<script[^>]+src="\/([^"?]+)/g))assert(fs.existsSync('dist/'+match[1]),'Missing admin script '+match[1]);
 const files=[];for(const dir of ['dist','server','scripts'])for(const name of fs.readdirSync(dir))if(/\.(mjs|js)$/.test(name)&&fs.statSync(path.join(dir,name)).isFile())files.push(path.join(dir,name));
 for(const file of files){const r=spawnSync(process.execPath,['--check',file],{stdio:'inherit'});assert.equal(r.status,0,'Syntax: '+file);}
 const spec=JSON.parse(fs.readFileSync('docs/release-spec.json'));

@@ -1,0 +1,15 @@
+const $=s=>document.querySelector(s),format=n=>Number(n).toLocaleString('tr-TR');
+let days=7,revision=0;
+const labels={home:'Ana sayfa',studio:'Studio',mint:'Mint', 'mint-fillout':'FillOut mint',inventory:'Inventory',whitepaper:'Whitepaper',quests:'Quests',checker:'WL Checker',transparency:'Güvenlik ve şeffaflık'};
+function title(route){return labels[route]||route;}
+function rows(target,values){const tbody=$(target);tbody.replaceChildren();if(!values.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=3;td.className='empty';td.textContent='Bu aralıkta henüz ziyaret kaydı yok.';tr.append(td);tbody.append(tr);return;}for(const value of values){const tr=document.createElement('tr');for(const text of value){const td=document.createElement('td');td.textContent=text;tr.append(td);}tbody.append(tr);}}
+function clear(){for(const id of ['visitors','pageviews','average'])$('#'+id).textContent='—';$('#daily').replaceChildren();$('#pages').replaceChildren();}
+async function load(){const request=++revision;clear();$('#refresh').disabled=true;$('#signin').hidden=true;$('#status').textContent='Yükleniyor…';document.querySelectorAll('[data-days]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.days)===days)));
+ try{const response=await fetch('/api/admin/analytics?days='+days,{credentials:'same-origin',cache:'no-store'});if(request!==revision)return;
+ if(response.status===401){$('#signin').hidden=false;throw Error('Oturumun sona erdi. Yeniden giriş yap.');}if(response.status===403)throw Error('Bu hesabın istatistikleri görüntüleme yetkisi yok.');if(!response.ok)throw Error('İstatistikler şu anda yüklenemiyor. Yenile ile tekrar dene.');const data=await response.json();if(request!==revision)return;
+ $('#visitors').textContent=format(data.totals.visitors);$('#pageviews').textContent=format(data.totals.pageviews);$('#average').textContent=data.totals.visitors?(data.totals.pageviews/data.totals.visitors).toLocaleString('tr-TR',{maximumFractionDigits:1}):'0';
+ $('#tracking').textContent=data.trackingSince?'İlk kayıt: '+new Date(data.trackingSince).toLocaleString('tr-TR'):'Ölçüm hazır. İlk ziyaret bekleniyor.';
+ const byDay=new Map(data.daily.map(d=>[d.day,d])),daily=[];for(let day=data.start;day<=data.end;day+=86400000){const key=new Date(day).toISOString().slice(0,10),row=byDay.get(key);const measured=data.trackingSince&&key>=new Date(data.trackingSince).toISOString().slice(0,10);daily.push([key,measured?format(row?.visitors||0):'—',measured?format(row?.pageviews||0):'—']);}rows('#daily',daily.reverse());rows('#pages',data.pages.map(p=>[title(p.route),format(p.visitors),format(p.pageviews)]));$('#status').textContent='Son güncelleme: '+new Date(data.end).toLocaleTimeString('tr-TR');
+ }catch(e){if(request===revision){clear();$('#status').textContent=e.message;$('#tracking').textContent='';}}finally{if(request===revision)$('#refresh').disabled=false;}}
+document.querySelectorAll('[data-days]').forEach(button=>button.onclick=()=>{days=Number(button.dataset.days);load();});$('#refresh').onclick=load;load();
+
