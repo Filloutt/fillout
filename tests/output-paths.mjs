@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {partsOutsideOutputs} from '../dist/output-paths.mjs';
+const input={id:'n1',type:'input',ins:[]};
+const gate={id:'n2',type:'nand',ins:['n1','n1']};
+const out={id:'n3',type:'output',ins:['n2']};
+assert.deepEqual(partsOutsideOutputs([input,gate,out]),[]);
+const unused={id:'n4',type:'nand',ins:['n1','n1']};
+assert.deepEqual(partsOutsideOutputs([input,gate,out,unused]).map(n=>n.id),['n4']);
+const mem={id:'n5',type:'mem',ins:['n6']},feedback={id:'n6',type:'nand',ins:['n5','n1']};
+assert.deepEqual(partsOutsideOutputs([input,mem,feedback,{id:'n7',type:'output',ins:['n5']}]),[]);
+assert.deepEqual(partsOutsideOutputs([input,gate,out,mem,feedback]).map(n=>n.id),['n5','n6']);
+assert.deepEqual(partsOutsideOutputs([input,{id:'n8',type:'nand',ins:[null,null]},out]).map(n=>n.id),['n8']);
+console.log('Output-path warning: connected gates, unused gates, memory feedback and isolated state tested.');

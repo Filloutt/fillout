@@ -41,3 +41,7 @@ The preview serves `dist/` on `http://127.0.0.1:8088`. It does not emulate authe
 `docs/index.html`, `docs/404.html` and `docs/CNAME` retain the root-domain redirect. GitHub Pages serves that directory, not the application backend. This repository is the application source; pushing it alone does not deploy the hosted application.
 
 Obsolete contracts, addresses and deployment evidence were removed from the current tree. Git history remains available; old commits do not specify the current release.
+
+## Source inspection and reuse
+
+The repository is public for inspection under [LICENSE](LICENSE), with all rights reserved. Public source availability and build reproducibility do not grant permission to reuse or redistribute the software. The application currently includes no marketplace; no trading fee has been announced for a future marketplace.

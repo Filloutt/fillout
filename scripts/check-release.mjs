@@ -20,5 +20,5 @@ const html=fs.readFileSync('dist/index.html','utf8');for(const match of html.mat
 const ir=compile(template());for(const [a,b,q]of [[0,0,1],[0,1,1],[1,0,1],[1,1,0]])assert.equal(step(ir,[],[a,b]).outputs[0],q);assert.equal((encode(ir).length-2)/2,29);
 const memory=compile(template('memory'));assert.deepEqual(step(memory,[0],[1]),{signals:[0,1,1,0],outputs:[0],nextState:[1]});
 assert.equal(fs.readFileSync('docs/CNAME','utf8').trim(),'fillout.work');assert(fs.readFileSync('docs/index.html','utf8').includes('https://app.fillout.work/'));
-for(const file of ['tests/manual-review.mjs','tests/locales.mjs']){const r=spawnSync(process.execPath,[file],{stdio:'inherit'});assert.equal(r.status,0,file);}
+for(const file of ['tests/manual-review.mjs','tests/locales.mjs','tests/output-paths.mjs']){const r=spawnSync(process.execPath,[file],{stdio:'inherit'});assert.equal(r.status,0,file);}
 console.log(`Release checks passed: ${files.length} modules; supply, no deployment addresses, assets, NAND, state, redirect, review and locales.`);
