@@ -10,8 +10,8 @@ async function main(){
  const addresses=await Promise.all([creator,alice,bob,team,lp,platform].map(s=>s.getAddress()));
  async function deploy(name,args){const artifact=JSON.parse(fs.readFileSync(path.join(__dirname,'artifacts',name+'.json')));const c=await new E.ContractFactory(artifact.abi,artifact.evm.bytecode.object,creator).deploy(...args);await c.waitForDeployment();return c;}
  async function send(tx){return(await tx).wait();}
- const gate=await deploy('AgentGate',[addresses[0]]),parts=await deploy('FillOutParts',[gate.target,addresses[0],addresses[3],addresses[4],addresses[5],addresses[0],'']);
- const circuits=await deploy('FillOutCircuits',[parts.target,'']),token=await deploy('VRAM',[addresses[4],circuits.target]),market=await deploy('FillOutMarket',[parts.target,circuits.target,addresses[3]]);
+ const gate=await deploy('AgentGate',[addresses[0]]),parts=await deploy('FillOutParts',[gate.target,addresses[0],addresses[3],addresses[4],addresses[0],'']);
+ const circuits=await deploy('FillOutCircuits',[parts.target,'']),token=await deploy('VRAM',[addresses[4],circuits.target,addresses[0],addresses[3]]),market=await deploy('FillOutMarket',[parts.target,circuits.target,addresses[3]]);
  await send(parts.bindAssembler(circuits.target));await send(circuits.bindRewardToken(token.target));
  const latest=async()=>Number((await hre.network.provider.send('eth_getBlockByNumber',['latest',false])).timestamp);
  let timestamp=await latest()+3;await send(parts.start(timestamp));await hre.network.provider.send('evm_setNextBlockTimestamp',[timestamp]);await hre.network.provider.send('evm_mine');

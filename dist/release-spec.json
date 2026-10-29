@@ -1,11 +1,10 @@
 {
   "recipients": {
-    "creator": "0xf63275572A2f9b7F247b6A1b0D9D1597d0B43626",
-    "platform": "0x2B7d6265259a3864DB0DAf3f9e15519610aC6Ed0",
-    "liquidity": "0xbC5A1C231365c33Bb51140aA65a71c7385de269F",
-    "team": "0x7810037d26d0bB410AEA90B8Db9030d78499f4bf"
+    "creator": "0xe9F1E05929B33C2E7dd8da650FD390BBcE22F75f",
+    "liquidity": "0x4a22d443226dEc4d7F66997c66DFd71C6e856dC3",
+    "team": "0x6De57e7b984130Ee7a223E3CbaD03b2FA04F8E9a"
   },
-  "revision": "3.0-deployed-prelaunch",
+  "revision": "genesis-v2-deployed-prelaunch",
   "interactionMode": "agent_prompt_contract_calls",
   "browserTransactionButtons": false,
   "network": {
@@ -20,25 +19,26 @@
     "unitPriceUsd": "0.30"
   },
   "team": {
-    "epicNfts": 50,
-    "quote": 1000,
-    "settle": 250,
-    "totalParts": 1250,
+    "epicNfts": 75,
+    "quote": 2300,
+    "settle": 575,
+    "totalParts": 2875,
     "rewardsUse": [
       "team_operations",
       "social_task_rewards"
     ],
-    "recipient": "0x7810037d26d0bB410AEA90B8Db9030d78499f4bf",
-    "countsTowardSoldOut": true
+    "recipient": "0x6De57e7b984130Ee7a223E3CbaD03b2FA04F8E9a",
+    "countsTowardSoldOut": true,
+    "rareNfts": 100
   },
   "publicParts": {
-    "total": 98750,
-    "Quote": 79000,
-    "Settle": 19750
+    "total": 97125,
+    "Quote": 77700,
+    "Settle": 19425
   },
   "nfts": {
     "total": 10000,
-    "public": 9950,
+    "public": 9825,
     "directMint": false,
     "assemblyAfterPartMintClose": true
   },
@@ -60,10 +60,9 @@
     "subjectToCommonCap": false
   },
   "revenue": {
-    "liquidityBps": 8000,
-    "platformBps": 2000,
-    "liquidityRecipient": "0xbC5A1C231365c33Bb51140aA65a71c7385de269F",
-    "platformRecipient": "0x2B7d6265259a3864DB0DAf3f9e15519610aC6Ed0",
+    "liquidityBps": 10000,
+    "platformBps": 0,
+    "liquidityRecipient": "0x4a22d443226dEc4d7F66997c66DFd71C6e856dC3",
     "paymentCurrency": "ETH"
   },
   "mint": {
@@ -72,7 +71,7 @@
     "supplyCap": 100000
   },
   "market": {
-    "feeRecipient": "0x7810037d26d0bB410AEA90B8Db9030d78499f4bf",
+    "feeRecipient": "0x6De57e7b984130Ee7a223E3CbaD03b2FA04F8E9a",
     "feeBps": 100,
     "live": false,
     "categories": [
@@ -85,13 +84,17 @@
     "agentOnly": true
   },
   "vram": {
-    "liquidityReserveRecipient": "0xbC5A1C231365c33Bb51140aA65a71c7385de269F",
+    "liquidityReserveRecipient": "0x4a22d443226dEc4d7F66997c66DFd71C6e856dC3",
     "total": "1000000000",
     "liquidity": "200000000",
     "mining": "800000000",
     "durationSeconds": 604800,
     "startWithinSecondsAfterMintClose": 86400,
-    "creatorFeeBpsProposed": 200
+    "tradingFeeBps": 200,
+    "feeRecipient": "0x6De57e7b984130Ee7a223E3CbaD03b2FA04F8E9a",
+    "feeScope": "registered_v2_pool_transfers",
+    "factory": null,
+    "registeredPools": []
   },
   "launch": {
     "mintLive": false,
@@ -100,11 +103,11 @@
     "marketLive": false,
     "agentVerificationLive": false,
     "productionContracts": {
-      "AgentGate": "0x9c8FAaC8dCA6173bd929b95caC920a5b0b84E2e6",
-      "FillOutParts": "0x19A2e6B14CE7399252aaBD2AB4B96c7D73611907",
-      "FillOutCircuits": "0xec4dc5b5Fe9cE20433418939E0E1ADCE56009F16",
-      "VRAM": "0x3CB1949C3D480dF6691412cdBdEE8168246cd000",
-      "FillOutMarket": "0x6F8a37b68629c9ddA75fcC8D9F590638de27Aa6B"
+      "AgentGate": "0x200FBE8FA1e7DB37779361a2704195031023d8BB",
+      "FillOutParts": "0x6c55197d4d3a2f062d0C14B9668819156dd21eDD",
+      "FillOutCircuits": "0xA9DE81A679967720240ac6cC89B2C6cD178Fc1F0",
+      "VRAM": "0xD4016C1DDe07a677122A54f75392189b61789E58",
+      "FillOutMarket": "0x4B57Ec2e7a01B1408f7B9F34f431aEfA4E026074"
     },
     "priceOracle": null,
     "mintClosesAt": null,
@@ -129,8 +132,8 @@
       "id": "rare",
       "name": "Rare",
       "count": 3336,
-      "publicCount": 3336,
-      "teamCount": 0,
+      "publicCount": 3236,
+      "teamCount": 100,
       "quote": 8,
       "settle": 2,
       "rewardBps": 3000,
@@ -141,8 +144,8 @@
       "id": "epic",
       "name": "Epic",
       "count": 1666,
-      "publicCount": 1616,
-      "teamCount": 50,
+      "publicCount": 1591,
+      "teamCount": 75,
       "quote": 20,
       "settle": 5,
       "rewardBps": 6000,

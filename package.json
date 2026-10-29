@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "compile": "node contracts/compile.cjs",
-    "test": "npm run compile && node contracts/test.cjs && node tests/service.mjs && node contracts/test-service-onchain.cjs"
+    "test": "npm run compile && node contracts/test.cjs && node contracts/test-vram-fee.cjs && node tests/service.mjs && node contracts/test-service-onchain.cjs"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "5.6.1",

@@ -5,13 +5,9 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./FillOutParts.sol";
+import "./VRAM.sol";
 
-contract VRAM is ERC20 {
-    constructor(address liquidity, address mining) ERC20("FillOut VRAM", "VRAM") {
-        require(liquidity != address(0) && mining.code.length > 0, "invalid recipients");
-        _mint(liquidity, 200_000_000 ether); _mint(mining, 800_000_000 ether);
-    }
-}
+
 
 /// @notice Burn-to-build ERC721 and seven-day mining vault.
 contract FillOutCircuits is ERC721, ReentrancyGuard {
@@ -24,6 +20,7 @@ contract FillOutCircuits is ERC721, ReentrancyGuard {
     string private metadata;
     uint256 public totalIssued;
     uint256 public teamEpicIssued;
+    uint256 public teamRareIssued;
     uint256[3] public issued;
     mapping(uint256 => uint8) public rarity;
     mapping(uint256 => uint256) public rewardIndex;
@@ -57,13 +54,18 @@ contract FillOutCircuits is ERC721, ReentrancyGuard {
     function assemble(uint8 tier, FillOutParts.Permit calldata p) external nonReentrant {
         require(parts.closed() && address(rewardToken) != address(0), "assembly closed");
         require(issued[tier < 3 ? tier : 0] < cap(tier), "rarity sold out");
-        if (tier == 2) require(issued[2] - teamEpicIssued < 1616, "public epic cap");
+        if (tier == 2) require(issued[2] - teamEpicIssued < 1591, "public epic cap");
+        if (tier == 1) require(issued[1] - teamRareIssued < 3236, "public rare cap");
         gate.consume(msg.sender, p.agentId, keccak256(abi.encode("ASSEMBLE", tier)), p.nonce, p.deadline, p.signature);
         _assemble(msg.sender, tier, false);
     }
     function assembleTeamEpic() external nonReentrant {
-        require(msg.sender == team && parts.closed() && address(rewardToken) != address(0) && teamEpicIssued < 50, "team reserve denied");
+        require(msg.sender == team && parts.closed() && address(rewardToken) != address(0) && teamEpicIssued < 75, "team reserve denied");
         ++teamEpicIssued; _assemble(team, 2, true);
+    }
+    function assembleTeamRare() external nonReentrant {
+        require(msg.sender == team && parts.closed() && address(rewardToken) != address(0) && teamRareIssued < 100, "team reserve denied");
+        ++teamRareIssued; _assemble(team, 1, true);
     }
     function _assemble(address account, uint8 tier, bool reserved) internal {
         require(issued[tier] < cap(tier), "rarity cap");

@@ -19,9 +19,9 @@ async function main(){
  async function now(){return Number((await hre.network.provider.send('eth_getBlockByNumber',['latest',false])).timestamp);}
  async function time(t){await hre.network.provider.send('evm_setNextBlockTimestamp',[t]);await hre.network.provider.send('evm_mine');}
  const gate=await deploy('AgentGate',[verifier.address]);
- const parts=await deploy('FillOutParts',[gate.target,addr[0],addr[3],addr[4],addr[5],priceSigner.address,'ipfs://parts/{id}.json']);
+ const parts=await deploy('FillOutParts',[gate.target,addr[0],addr[3],addr[4],priceSigner.address,'ipfs://parts/{id}.json']);
  const circuits=await deploy('FillOutCircuits',[parts.target,'ipfs://circuits/']);
- const token=await deploy('VRAM',[addr[4],circuits.target]);
+ const token=await deploy('VRAM',[addr[4],circuits.target,addr[0],addr[3]]);
  const market=await deploy('FillOutMarket',[parts.target,circuits.target,addr[3]]);
  const agentTypes={AgentPermit:[{name:'consumer',type:'address'},{name:'account',type:'address'},{name:'agentId',type:'bytes32'},{name:'action',type:'bytes32'},{name:'nonce',type:'uint256'},{name:'deadline',type:'uint256'}]};
  const agentDomain={name:'FillOut Agent Gate',version:'1',chainId:31337,verifyingContract:gate.target};
@@ -45,7 +45,7 @@ async function main(){
  equal(await token.totalSupply(),E.parseEther('1000000000'),'fixed VRAM supply');
  equal(await token.balanceOf(addr[4]),E.parseEther('200000000'),'liquidity reserve');
  equal(await token.balanceOf(circuits.target),E.parseEther('800000000'),'mining funded');
- equal(await parts.balanceOf(addr[3],0),1000n,'team Quote');equal(await parts.balanceOf(addr[3],1),250n,'team Settle');
+ equal(await parts.balanceOf(addr[3],0),2300n,'team Quote');equal(await parts.balanceOf(addr[3],1),575n,'team Settle');
  await rejects(()=>parts.connect(alice).bindAssembler(circuits.target),'owner-only setup');
  await send(parts.bindAssembler(circuits.target));
  await rejects(()=>parts.start(now().then(x=>x+5)),'cannot open unfunded mining');
@@ -69,12 +69,12 @@ async function main(){
  const beforeLP=BigInt(await hre.network.provider.send('eth_getBalance',[addr[4],'latest']));
  const beforePlatform=BigInt(await hre.network.provider.send('eth_getBalance',[addr[5],'latest']));
  await send(buy(alice,4,1));
- equal(BigInt(await hre.network.provider.send('eth_getBalance',[addr[4],'latest']))-beforeLP,40000n,'80 percent direct ETH');
- equal(BigInt(await hre.network.provider.send('eth_getBalance',[addr[5],'latest']))-beforePlatform,10000n,'20 percent direct ETH');
+ equal(BigInt(await hre.network.provider.send('eth_getBalance',[addr[4],'latest']))-beforeLP,50000n,'100 percent direct ETH to liquidity');
+ equal(BigInt(await hre.network.provider.send('eth_getBalance',[addr[5],'latest']))-beforePlatform,0n,'no mint ETH to former platform address');
  await rejects(()=>buy(alice,1,0,{value:9999n}),'underpayment');
  await rejects(()=>buy(alice,1,0,{value:10001n}),'overpayment');
- await rejects(()=>buy(alice,79001,0),'quantity cap');
- await rejects(()=>buy(alice,79000,0),'aggregate supply cap');
+ await rejects(()=>buy(alice,77701,0),'quantity cap');
+ await rejects(()=>buy(alice,77700,0),'aggregate supply cap');
  const invalidPermit={agentId:id('invalid'),nonce:123,deadline:await now()+200,signature:'0x'};
  await rejects(()=>parts.connect(alice).buy(1,0,invalidPermit,{unitWei:1,nonce:1,deadline:1,signature:'0x'},{value:1}),'expired price');
  await rejects(()=>parts.connect(alice).buy(1,0,invalidPermit,{unitWei:1,nonce:1,deadline:now().then(x=>x+1000),signature:'0x'},{value:1}),'excessively long price lifetime');
@@ -109,10 +109,11 @@ async function main(){
  await send(parts.connect(team).setApprovalForAll(circuits.target,true));
  await rejects(()=>circuits.connect(bob).assembleTeamEpic(),'team reserve restricted');
  await send(circuits.connect(team).assembleTeamEpic());equal(await circuits.teamEpicIssued(),1n,'team reserve consumes cap');
- equal(await parts.balanceOf(addr[3],0),980n,'team parts burned');
- for(let i=1;i<50;i++)await send(circuits.connect(team).assembleTeamEpic());
- equal(await circuits.teamEpicIssued(),50n,'exactly 50 team Epic');equal(await parts.balanceOf(addr[3],0),0n,'all reserved Quote consumed');equal(await parts.balanceOf(addr[3],1),0n,'all reserved Settle consumed');
- await rejects(()=>circuits.connect(team).assembleTeamEpic(),'no 51st team Epic');
+ equal(await parts.balanceOf(addr[3],0),2280n,'team parts burned');
+ for(let i=1;i<75;i++)await send(circuits.connect(team).assembleTeamEpic());
+ equal(await circuits.teamEpicIssued(),75n,'exactly 75 team Epic');equal(await parts.balanceOf(addr[3],0),800n,'Quote reserved for team Rare remains');equal(await parts.balanceOf(addr[3],1),200n,'Settle reserved for team Rare remains');
+ await rejects(()=>circuits.connect(team).assembleTeamEpic(),'no 76th team Epic');
+ for(let i=0;i<100;i++)await send(circuits.connect(team).assembleTeamRare());equal(await circuits.teamRareIssued(),100n,'exactly 100 team Rare');equal(await parts.balanceOf(addr[3],0),0n,'all team Quote burned');equal(await parts.balanceOf(addr[3],1),0n,'all team Settle burned');await rejects(()=>circuits.connect(team).assembleTeamRare(),'no 101st team Rare');
  await time(Number(await circuits.miningStartsAt())+3600);
  const pending=await circuits.pending(1);assert(pending>0n);checks++;
  await send(circuits.connect(alice).setApprovalForAll(market.target,true));
@@ -141,11 +142,11 @@ async function main(){
  await time(expiry+1);await rejects(()=>gate.connect(alice).consume(addr[1],v.agentId,action,v.nonce,expiry,sig),'expired');
  // A fresh deployment verifies the deadline path independently of sold-out.
  const rejectETH=await actor('RejectETH');
- const p2=await deploy('FillOutParts',[gate.target,addr[0],addr[3],rejectETH.target,addr[5],priceSigner.address,'']);
- const c2=await deploy('FillOutCircuits',[p2.target,'']);const t2=await deploy('VRAM',[addr[4],c2.target]);
+ const p2=await deploy('FillOutParts',[gate.target,addr[0],addr[3],rejectETH.target,priceSigner.address,'']);
+ const c2=await deploy('FillOutCircuits',[p2.target,'']);const t2=await deploy('VRAM',[addr[4],c2.target,addr[0],addr[3]]);
  await send(p2.bindAssembler(c2.target));await send(c2.bindRewardToken(t2.target));
  const start2=await now()+5;await send(p2.start(start2));await time(start2);
- await rejects(()=>buy(alice,1,1,{},p2),'failed ETH payout reverts mint');equal(await p2.quoteIssued(),1000n,'payout failure rolls back supply');equal(await p2.balanceOf(addr[1],0),0n,'payout failure rolls back balance');
+ await rejects(()=>buy(alice,1,1,{},p2),'failed ETH payout reverts mint');equal(await p2.quoteIssued(),2300n,'payout failure rolls back supply');equal(await p2.balanceOf(addr[1],0),0n,'payout failure rolls back balance');
  await time(start2+604799);equal(await p2.closed(),false,'open before deadline');
  await time(start2+604800);equal(await p2.closed(),true,'closed exactly at 168 hours');
  equal(await p2.soldOutAt(),0n,'deadline without soldout');

@@ -1,0 +1,13 @@
+{
+  "checks": 32,
+  "passed": true,
+  "network": "local Hardhat only",
+  "productionTransactionsSent": 0,
+  "feeBps": 200,
+  "feeAsset": "VRAM",
+  "normalWalletTransfersTaxed": false,
+  "limitations": [
+    "Tax applies to registered pool transfers, including later liquidity additions/removals.",
+    "Pool selection and fee-on-transfer-compatible routing still require actual DEX setup."
+  ]
+}

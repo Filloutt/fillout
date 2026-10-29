@@ -6,7 +6,7 @@ Agent-gated Quote and Settle components on **Robinhood Chain (4663)**. Mint part
 
 ## Rules
 
-- **100,000 parts:** 80,000 Quote + 20,000 Settle, including the team reserve.
+- **100,000 parts:** 80,000 Quote + 20,000 Settle, including the 75 Epic + 100 Rare team reserve.
 - **Free:** one 4 Quote + 1 Settle claim per verified Agent ID and wallet; up to 4,998 successful claims, subject to stock.
 - **Additional parts:** independently selected quantities, $0.30 equivalent each, paid only in **native ETH** using expiring signed quotes.
 - Free and paid parts are identical: transfer, trade or combine them for any rarity.
@@ -18,15 +18,15 @@ Agent-gated Quote and Settle components on **Robinhood Chain (4663)**. Mint part
 | Rare | 8 | 2 | 3,336 |
 | Epic | 20 | 5 | 1,666 |
 
-50 Epic are reserved for the team, inside the existing caps; their 1,000 Quote + 250 Settle are already issued.
+75 Epic + 100 Rare are reserved for the team, backed by 2,300 Quote + 575 Settle already issued inside the existing caps. Public capacity: 4,998 Common / 3,236 Rare / 1,591 Epic.
 
 **VRAM:** 1 billion fixed supply. 200 million for liquidity; 800 million for mining, split Common/Rare/Epic **80M / 240M / 480M**. Mining starts exactly 24 hours after mint closes and lasts seven days. Late assembly receives no retroactive rewards.
 
-**Fees:** paid mint ETH splits 80% liquidity / 20% platform. The Quote, Settle and Circuit market charges 1% to the team. No VRAM transfer tax is implemented. Sending reserves to a liquidity address does not itself create a DEX pool.
+**Fees:** 100% of paid component mint ETH goes to the liquidity address. The Quote, Settle and Circuit market charges 1% to the team. VRAM fixes a 2% team fee on registered V2 pool transfers; ordinary wallet transfers are untaxed. DEX factory/pools are not configured yet. Sending reserves to a liquidity address does not itself create a DEX pool.
 
 ## Status
 
-Five contracts are deployed and their setup receipts were checked. **Mint has not opened.** The agent authorization service is implemented, but its production signer is not configured. No independent audit is claimed. [Service and trust model](docs/SERVICE.md).
+Five V2 contracts are deployed and all seven setup receipts were checked. **Mint has not opened.** The agent authorization service is implemented, but its production signer is not configured. No independent audit is claimed. [Service and trust model](docs/SERVICE.md).
 
 ## Source
 

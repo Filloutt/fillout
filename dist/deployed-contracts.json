@@ -1,48 +1,49 @@
 {
+  "revision": "genesis-v2",
   "chainId": 4663,
-  "verifiedAt": "2026-10-29T07:53:43.463Z",
+  "verifiedAt": "2026-10-29T08:58:39.966Z",
   "addresses": {
-    "AgentGate": "0x9c8FAaC8dCA6173bd929b95caC920a5b0b84E2e6",
-    "FillOutParts": "0x19A2e6B14CE7399252aaBD2AB4B96c7D73611907",
-    "FillOutCircuits": "0xec4dc5b5Fe9cE20433418939E0E1ADCE56009F16",
-    "VRAM": "0x3CB1949C3D480dF6691412cdBdEE8168246cd000",
-    "FillOutMarket": "0x6F8a37b68629c9ddA75fcC8D9F590638de27Aa6B"
+    "AgentGate": "0x200FBE8FA1e7DB37779361a2704195031023d8BB",
+    "FillOutParts": "0x6c55197d4d3a2f062d0C14B9668819156dd21eDD",
+    "FillOutCircuits": "0xA9DE81A679967720240ac6cC89B2C6cD178Fc1F0",
+    "VRAM": "0xD4016C1DDe07a677122A54f75392189b61789E58",
+    "FillOutMarket": "0x4B57Ec2e7a01B1408f7B9F34f431aEfA4E026074"
   },
   "runtimeCodeHashes": {
-    "AgentGate": "0x51af8436a6d5d0d288a067c55ec1f146ae675e32d4705d48bffe46337b401c24",
-    "FillOutParts": "0x3f694bdea443355d38b8709dbc35defc374c3540ab3f9437bcf995ccdd8c45dd",
-    "FillOutCircuits": "0xba83b3b4f9d238f5ba6c8c14eaceeac8a86d914c4e483f9727b6a0ff75ee9bab",
-    "VRAM": "0x1237beccabf2a7777fc9974dec7354a92e793a8b7d876c711436daa16344cb78",
-    "FillOutMarket": "0xa21dd22b9b4a51a98432d7a3e8cd3bf69750517801ca759716c7dd23ce61e5ad"
+    "AgentGate": "0x872a4a509090c396b9cce8ec323dbe0ee74d3f78c5e63daf6a9ad18206aa731a",
+    "FillOutParts": "0x904f0bfa0902df5c15f16f558f8046965aa168d4e8f9b82d8591b868d7aa2540",
+    "FillOutCircuits": "0x41e58e7b335e15670400b1c69d6691ae1d814bbbac9981776c80af983d4360a0",
+    "VRAM": "0x1afbfe04a5691acb5c32bed853410fa77d81e10e07342f90bee6c8e203adc5ed",
+    "FillOutMarket": "0x3265de1668190a99f1fafba9506616a2405f32b1ec5fa76809294cf23b0b77a2"
   },
   "receipts": [
     {
       "step": "gate",
-      "hash": "0xedfcc81fe32ddb0c4b2acfd9b5dbec35ca235135533d79bd8ebadca00e32fbe5"
+      "hash": "0xef1c7d491c65e63cd3f710637526b58241e150d5a35f79a53869cb4ee20c056a"
     },
     {
       "step": "parts",
-      "hash": "0x8fcc350522461d47da61d86a73af7829afdbab470c7639ea2ed1f64a3b65ba21"
+      "hash": "0xd65466e3bc43d24be01724e723d2b58d1a74d57ee0ba8c905177587414fc660a"
     },
     {
       "step": "circuits",
-      "hash": "0xc29c86feab8939e84c22c33a3f2316a8481b3cc98331297f8535b1e211ef997c"
+      "hash": "0x3739e70ee1a3ffc9ee2cb439ee34c7cc13896a7fa2088e62037b39b0c386bb8c"
     },
     {
       "step": "vram",
-      "hash": "0x62817a5988867489d664897cacf9b53d86ad65d682db5c0e8b9bdb2a37e68123"
+      "hash": "0x5a6683506d0a4a4dccf2567c7e3fa35028895d8016430993f6b8f777079f6e83"
     },
     {
       "step": "market",
-      "hash": "0x8696277d979e6de2158631bdc1b3989c11a563674b2bd7cac6ff19eed5b19ae3"
+      "hash": "0xcda71d90b0359778ae3fccb0aa0e08f411c01677838108ce9362c08138720ca5"
     },
     {
       "step": "bind-assembler",
-      "hash": "0x2289256e0beecd81de5a851710e7fb851fca5569135e8ac0dc472e6588628441"
+      "hash": "0xe28b13cb0a90f3cf6fa51ef772a862778ce2612fd07474b7efd44ca26e16f3e0"
     },
     {
       "step": "bind-rewards",
-      "hash": "0x9f59942745a34fab0be1f958bc34e69634382e5a6bfde41d39849ea90ee0e02a"
+      "hash": "0xc05a67e24b8cc6f264b64889133961a6032316dd5afe76bb0afa375f8a22f0f2"
     }
   ]
 }

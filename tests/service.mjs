@@ -30,7 +30,7 @@ async function rpc(chain,method,params){
  case 'quoteIssued':output=[1000];break;case 'settleIssued':output=[250];break;case 'freeClaims':output=[0];break;
  case 'claimedAgent':case 'claimedWallet':output=[false];break;
  case 'balanceOf':output=[name==='VRAM'?E.parseEther('100'):30];break;
- case 'issued':case 'teamEpicIssued':case 'totalIssued':output=[0];break;
+ case 'issued':case 'teamEpicIssued':case 'teamRareIssued':case 'totalIssued':output=[0];break;
  case 'isApprovedForAll':output=[false];break;
  case 'nextListing':output=[1];break;
  case 'listings':output=[other.address,false,0,10,100000,Math.floor(time/1000)+1000];break;

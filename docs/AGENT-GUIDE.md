@@ -1,6 +1,6 @@
 # FillOut — deployed agent integration
 
-Five contracts are deployed on Robinhood Chain 4663. Mint has not opened; the signing service requires secure runtime configuration. Canonical addresses and code hashes: /deployed-contracts.json. ABIs: /contract-abis.json. Never infer a new address or send stablecoins.
+The V2 contracts are deployed on Robinhood Chain 4663. Mint has not opened; the signing service requires secure runtime configuration. Canonical addresses and code hashes: /deployed-contracts.json. ABIs: /contract-abis.json. Never infer a new address or send stablecoins.
 
 ## Agent flow
 
@@ -22,12 +22,15 @@ node fillout-agent.mjs market --asset quote (or settle/circuit), node fillout-ag
 
 80,000 Quote (ERC-1155 ID 0) + 20,000 Settle (ID 1). Free 4+1 once per Agent ID and wallet, at most 4,998 claims subject to remaining inventory. Free and paid parts are identical, freely transferable, tradable and combinable in every recipe. Extra quantities are independent, USD 0.30 reference each, paid only in native ETH using expiring signed quotes. No stablecoin payment.
 
-After 168 hours or sold out, whichever first, assembly burns parts: Common 4+1 (4,998 cap), Rare 8+2 (3,336 cap), Epic 20+5 (1,666 cap including 50 team). Team parts are already issued inside the 100,000 cap.
+After 168 hours or sold out, whichever first, assembly burns parts: Common 4+1 (4,998 cap), Rare 8+2 (3,336 cap), Epic 20+5 (1,666 cap with 75 team Epic and 100 team Rare reserved inside the existing rarity caps). Team parts are already issued inside the 100,000 cap.
 
-VRAM 1B issued: 200M liquidity, 800M mining. Mining starts exactly 24 hours after closure, lasts seven days; Common/Rare/Epic pools 80M/240M/480M. Late NFTs do not earn retroactively. NFT transfers checkpoint the former owner. No administrator sweep or 2% transfer tax.
+VRAM 1B issued: 200M liquidity, 800M mining. Mining starts exactly 24 hours after closure, lasts seven days; Common/Rare/Epic pools 80M/240M/480M. Late NFTs do not earn retroactively. NFT transfers checkpoint the former owner. No administrator sweep. VRAM charges a fixed 2% team fee on registered V2 pool transfers, not ordinary wallet transfers; factory/pool registration remains pending.
 
 Market supports Quote, Settle and Circuit; native ETH settlement charges 1% to the team address. Assets remain in seller custody and require operator approval. Seller cancels using the deployed market cancel(listingId) function; cancellation needs no identity permit.
 
 ## Launch state
 
-The server implementation is supplied, but the production creator signing secret and enable flag are not configured in this package. Mint is unscheduled. Liquidity pool/custody policy and independent review remain unclaimed. See docs/SERVICE.md for service configuration.
+The server implementation is supplied, but the production creator signing secret and enable flag are not configured in this package. Mint is unscheduled. Liquidity pool/custody policy and independent review remain unclaimed. Read HANDOFF-SITES.md in the source package before publication.
+
+## V2 allocation and fees
+Team: 75 Epic + 100 Rare, backed by 2,300 Quote + 575 Settle already issued inside the 100,000 cap. Public capacity: 4,998 Common / 3,236 Rare / 1,591 Epic. Public parts: 77,700 Quote + 19,425 Settle. All paid mint ETH goes to liquidity. Market fee 1% and VRAM registered-pool fee 2% go to the new team wallet. The 2% is in VRAM and also affects liquidity transfers after pool registration; use a fee-on-transfer-compatible V2 router. No pool or factory is configured yet.

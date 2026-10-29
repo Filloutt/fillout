@@ -14,13 +14,12 @@ contract FillOutParts is ERC1155, ReentrancyGuard, EIP712 {
     address public immutable creator;
     address public immutable team;
     address payable public immutable liquidity;
-    address payable public immutable platform;
     address public immutable priceSigner;
     address public assembler;
     uint256 public openedAt;
     uint256 public soldOutAt;
-    uint256 public quoteIssued = 1000;
-    uint256 public settleIssued = 250;
+    uint256 public quoteIssued = 2300;
+    uint256 public settleIssued = 575;
     uint256 public freeClaims;
     mapping(bytes32 => bool) public claimedAgent;
     mapping(address => bool) public claimedWallet;
@@ -32,11 +31,11 @@ contract FillOutParts is ERC1155, ReentrancyGuard, EIP712 {
     event Purchased(address indexed buyer, uint256 quote, uint256 settle, uint256 value, uint256 liquidityAmount, uint256 platformAmount);
     event StarterClaimed(address indexed buyer, bytes32 indexed agentId);
     event SoldOut(uint256 timestamp);
-    constructor(address gate_, address creator_, address team_, address payable liquidity_, address payable platform_, address priceSigner_, string memory uri_)
+    constructor(address gate_, address creator_, address team_, address payable liquidity_, address priceSigner_, string memory uri_)
         ERC1155(uri_) EIP712("FillOut ETH Price", "1") {
-        require(gate_.code.length > 0 && creator_ != address(0) && team_ != address(0) && liquidity_ != address(0) && platform_ != address(0) && priceSigner_ != address(0), "invalid setup");
-        gate = AgentGate(gate_); creator = creator_; team = team_; liquidity = liquidity_; platform = platform_; priceSigner = priceSigner_;
-        _mint(team_, 0, 1000, ""); _mint(team_, 1, 250, "");
+        require(gate_.code.length > 0 && creator_ != address(0) && team_ != address(0) && liquidity_ != address(0) && priceSigner_ != address(0), "invalid setup");
+        gate = AgentGate(gate_); creator = creator_; team = team_; liquidity = liquidity_; priceSigner = priceSigner_;
+        _mint(team_, 0, 2300, ""); _mint(team_, 1, 575, "");
     }
     function bindAssembler(address candidate) external {
         require(msg.sender == creator && assembler == address(0) && candidate.code.length > 0 && openedAt == 0, "bind denied");
@@ -68,16 +67,15 @@ contract FillOutParts is ERC1155, ReentrancyGuard, EIP712 {
     /// @dev The price signer attests the ETH equivalent of USD 0.30 per part.
     /// Its honesty and price-feed freshness remain an explicit off-chain trust assumption.
     function buy(uint256 quote, uint256 settle, Permit calldata p, Price calldata price) external payable nonReentrant {
-        _open(); require(quote + settle > 0 && quote <= 79000 && settle <= 19750, "invalid quantity");
+        _open(); require(quote + settle > 0 && quote <= 77700 && settle <= 19425, "invalid quantity");
         require(price.unitWei > 0 && price.deadline >= block.timestamp && price.deadline <= block.timestamp + 5 minutes, "price expiry");
         bytes32 digest = _hashTypedDataV4(keccak256(abi.encode(PRICE_TYPEHASH, msg.sender, quote, settle, price.unitWei, price.nonce, price.deadline)));
         require(SignatureChecker.isValidSignatureNow(priceSigner, digest, price.signature), "invalid price");
         require(msg.value == (quote + settle) * price.unitWei, "exact ETH required");
         gate.consume(msg.sender, p.agentId, keccak256(abi.encode("BUY", quote, settle, digest)), p.nonce, p.deadline, p.signature);
         _issue(msg.sender, quote, settle);
-        uint256 lp = msg.value * 8000 / 10000;
+        uint256 lp = msg.value;
         (bool a,) = liquidity.call{value:lp}(""); require(a, "liquidity payout");
-        (bool b,) = platform.call{value:msg.value-lp}(""); require(b, "platform payout");
         emit Purchased(msg.sender, quote, settle, msg.value, lp, msg.value-lp);
     }
     function _issue(address to, uint256 quote, uint256 settle) internal {

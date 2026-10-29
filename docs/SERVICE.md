@@ -15,9 +15,9 @@ Deploy `server/worker.mjs` on a Worker-compatible runtime, with D1 binding `DB`,
 - `FILLOUT_RPC_URL`: trusted HTTPS Robinhood Chain 4663 RPC.
 - `FILLOUT_IDENTITY_RPC_URL`: trusted HTTPS BSC 56 RPC.
 
-The creator/verifier is fixed at `0xf63275572A2f9b7F247b6A1b0D9D1597d0B43626`, an EOA, not a multisig. Its signing key also controls one-time setup and mint scheduling. The other immutable recipients and deployment evidence are in [robinhood.json](../deployments/robinhood.json). No private key is included here. Wallet approval of deployment does not provision a server signer.
+The creator/verifier is fixed at `0xe9F1E05929B33C2E7dd8da650FD390BBcE22F75f`, an EOA, not a multisig. Its signing key also controls one-time setup and mint scheduling. The other immutable recipients and deployment evidence are in [robinhood.json](../deployments/robinhood.json). No private key is included here. Wallet approval of deployment does not provision a server signer.
 
-The contract suite has no proxy upgrade, pause, supply increase or fee-change method. The creator can bind the assembler once, bind VRAM once and schedule opening once. Start cannot be changed after scheduling. Mining begins exactly 24 hours after closure. The vault has no administrator sweep of unused rewards. Team spending purposes and actual DEX liquidity provisioning are operational policies, not automatically enforced spending rules.
+The contract suite has no proxy upgrade, pause, supply increase or fee-change method. The creator can bind the assembler once, bind VRAM once, bind one V2-compatible VRAM DEX factory once and schedule opening once. Start cannot be changed after scheduling. Mining begins exactly 24 hours after closure. The vault has no administrator sweep of unused rewards. Team spending purposes and actual DEX liquidity provisioning are operational policies, not automatically enforced spending rules.
 
 ## API
 
@@ -28,3 +28,8 @@ The contract suite has no proxy upgrade, pause, supply increase or fee-change me
 Use official wallet preview → explicit user confirmation → execute. The CLI checks actual supported wallet networks; Robinhood support must not be assumed. Missing signer configuration returns HTTP 503. Mint remains unscheduled until a separate creator transaction opens it.
 
 Local service tests use ephemeral identities. Contract-flow tests use an in-process Hardhat chain, a registry ownership fixture and a price fixture; they do not claim a real customer mint, independent audit, or production signing-service validation.
+
+## V2 fees and reserve
+100% of paid mint ETH goes to the liquidity address. Team reserve: 75 Epic + 100 Rare inside existing caps, backed by 2,300 Quote + 575 Settle. The market fee remains 1% to the new team address. VRAM fixes a 2% fee in VRAM on transfers to/from registered V2 pools, not ordinary wallet transfers or mining claims. The factory is bound once by the creator; any genuine pair returned by that fixed factory can then be registered permissionlessly. Rate and recipient cannot be changed; EOAs cannot be marked as pools. No DEX factory or pool is configured yet.
+
+Unregistered pools and other venues do not automatically pay the fee. Pool transfers also include later liquidity additions/removals; initial liquidity should be funded before registration. Use a fee-on-transfer-compatible V2 router; standard V3 routing is not supported. DEX compatibility and LP policy must be checked before opening trading.
