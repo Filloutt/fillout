@@ -1,0 +1,48 @@
+{
+  "chainId": 4663,
+  "verifiedAt": "2026-10-29T07:53:43.463Z",
+  "addresses": {
+    "AgentGate": "0x9c8FAaC8dCA6173bd929b95caC920a5b0b84E2e6",
+    "FillOutParts": "0x19A2e6B14CE7399252aaBD2AB4B96c7D73611907",
+    "FillOutCircuits": "0xec4dc5b5Fe9cE20433418939E0E1ADCE56009F16",
+    "VRAM": "0x3CB1949C3D480dF6691412cdBdEE8168246cd000",
+    "FillOutMarket": "0x6F8a37b68629c9ddA75fcC8D9F590638de27Aa6B"
+  },
+  "runtimeCodeHashes": {
+    "AgentGate": "0x51af8436a6d5d0d288a067c55ec1f146ae675e32d4705d48bffe46337b401c24",
+    "FillOutParts": "0x3f694bdea443355d38b8709dbc35defc374c3540ab3f9437bcf995ccdd8c45dd",
+    "FillOutCircuits": "0xba83b3b4f9d238f5ba6c8c14eaceeac8a86d914c4e483f9727b6a0ff75ee9bab",
+    "VRAM": "0x1237beccabf2a7777fc9974dec7354a92e793a8b7d876c711436daa16344cb78",
+    "FillOutMarket": "0xa21dd22b9b4a51a98432d7a3e8cd3bf69750517801ca759716c7dd23ce61e5ad"
+  },
+  "receipts": [
+    {
+      "step": "gate",
+      "hash": "0xedfcc81fe32ddb0c4b2acfd9b5dbec35ca235135533d79bd8ebadca00e32fbe5"
+    },
+    {
+      "step": "parts",
+      "hash": "0x8fcc350522461d47da61d86a73af7829afdbab470c7639ea2ed1f64a3b65ba21"
+    },
+    {
+      "step": "circuits",
+      "hash": "0xc29c86feab8939e84c22c33a3f2316a8481b3cc98331297f8535b1e211ef997c"
+    },
+    {
+      "step": "vram",
+      "hash": "0x62817a5988867489d664897cacf9b53d86ad65d682db5c0e8b9bdb2a37e68123"
+    },
+    {
+      "step": "market",
+      "hash": "0x8696277d979e6de2158631bdc1b3989c11a563674b2bd7cac6ff19eed5b19ae3"
+    },
+    {
+      "step": "bind-assembler",
+      "hash": "0x2289256e0beecd81de5a851710e7fb851fca5569135e8ac0dc472e6588628441"
+    },
+    {
+      "step": "bind-rewards",
+      "hash": "0x9f59942745a34fab0be1f958bc34e69634382e5a6bfde41d39849ea90ee0e02a"
+    }
+  ]
+}

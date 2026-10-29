@@ -1,0 +1,12 @@
+node_modules/
+contracts/artifacts/
+contracts/test-cache/
+contracts/service-test-cache/
+contracts/test-report.json
+contracts/service-onchain-test-report.json
+agent-service-test-report.json
+.env
+.env.*
+!.env.example
+*.sqlite
+.local/

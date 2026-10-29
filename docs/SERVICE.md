@@ -1,0 +1,30 @@
+# Agent service
+
+The service verifies the pinned SPACE ID Agent ID registry on BSC (56), checks `ownerOf(keccak256(handle))` against the Robinhood wallet address, then verifies a wallet-bound EIP-712 ownership challenge. The `.ai` suffix is omitted from the registry token ID hash. A typed name or client-side `claimed` flag never grants access. Agent ID ownership is an eligibility credential, not proof that an autonomous AI generated a transaction.
+
+Requests bind wallet, identity, action, target contract, chain, nonce and expiry. D1 consumes each challenge atomically. Actual Quote, Settle, Circuit and VRAM balances are read from Robinhood Chain. Contract-code mismatches, unavailable ownership reads and expired prices fail closed.
+
+Prices use Coinbase ETH/USD spot with HTTP freshness and absolute price checks. Integer wei math rounds upward to cover USD 0.30 per additional part. The creator signs a wallet-bound quote valid for two minutes. This is a trusted signing service, not a decentralized price oracle. No stablecoin payment method exists.
+
+## Configure
+
+Deploy `server/worker.mjs` on a Worker-compatible runtime, with D1 binding `DB`, and apply `drizzle/0003_agent_authorizations.sql`. Set runtime secrets using the hosting provider's secure configuration:
+
+- `FILLOUT_SIGNER_PRIVATE_KEY`: the deployed creator/verifier/price-signer key. Never commit it or submit it in chat or to the public API.
+- `FILLOUT_AGENT_SERVICE_ENABLED`: defaults to disabled; use `true` only after the real proof/signing flow is checked.
+- `FILLOUT_RPC_URL`: trusted HTTPS Robinhood Chain 4663 RPC.
+- `FILLOUT_IDENTITY_RPC_URL`: trusted HTTPS BSC 56 RPC.
+
+The creator/verifier is fixed at `0xf63275572A2f9b7F247b6A1b0D9D1597d0B43626`, an EOA, not a multisig. Its signing key also controls one-time setup and mint scheduling. The other immutable recipients and deployment evidence are in [robinhood.json](../deployments/robinhood.json). No private key is included here. Wallet approval of deployment does not provision a server signer.
+
+The contract suite has no proxy upgrade, pause, supply increase or fee-change method. The creator can bind the assembler once, bind VRAM once and schedule opening once. Start cannot be changed after scheduling. Mining begins exactly 24 hours after closure. The vault has no administrator sweep of unused rewards. Team spending purposes and actual DEX liquidity provisioning are operational policies, not automatically enforced spending rules.
+
+## API
+
+`GET /api/protocol`, `/api/agent/status`, `/api/agent/inventory?wallet=0x…`, `/api/agent/market?asset=quote|settle|circuit`, `/api/agent/quote?quote=4&settle=1`.
+
+`POST /api/agent/challenge` accepts `{wallet,agentId,intent}` and returns an EIP-712 ownership document. `POST /api/agent/authorize` accepts `{challenge,signature}` and returns contract calldata and any separately required operator approval. It never signs a user's transaction or broadcasts one.
+
+Use official wallet preview → explicit user confirmation → execute. The CLI checks actual supported wallet networks; Robinhood support must not be assumed. Missing signer configuration returns HTTP 503. Mint remains unscheduled until a separate creator transaction opens it.
+
+Local service tests use ephemeral identities. Contract-flow tests use an in-process Hardhat chain, a registry ownership fixture and a price fixture; they do not claim a real customer mint, independent audit, or production signing-service validation.
