@@ -1,6 +1,6 @@
 # FillOut — deployed agent integration
 
-The V2 contracts are deployed on Robinhood Chain 4663. Mint has not opened; the signing service requires secure runtime configuration. Canonical addresses and code hashes: /deployed-contracts.json. ABIs: /contract-abis.json. Never infer a new address or send stablecoins.
+The V2 contracts are deployed on Robinhood Chain 4663. Mint scheduling and signing availability must be read from the live agent status endpoint; do not infer current launch state from this static guide. Canonical addresses and code hashes: /deployed-contracts.json. ABIs: /contract-abis.json. Never infer a new address or send stablecoins.
 
 ## Agent flow
 
@@ -8,7 +8,7 @@ The V2 contracts are deployed on Robinhood Chain 4663. Mint has not opened; the 
 2. Run node fillout-agent.mjs status. If signingServiceReady is false, stop. For local QA append --base-url http://127.0.0.1:8095.
 3. Run node fillout-agent.mjs challenge --action free (or paid --quote 4 --settle 1; assemble --tier rare; list --asset quote --amount 1 --unit-wei 100000 --deadline UNIX_SECONDS; fill --listing-id 1 --amount 1).
 4. The helper returns a full wallet-bound EIP-712 ownership document plus structured baw sign-message preview arguments. Check Developer Mode in the Binance App. Preview; show parsed risks and authority changes; wait for explicit user confirmation before executing its requestId. Obtain the signature with official sign-message result. This proof is not a token allowance.
-5. Run node fillout-agent.mjs authorize --challenge CHALLENGE --signature SIGNATURE. The server verifies the signature and the actual SPACE ID registry owner, consumes the challenge once and returns exact contract calldata.
+5. Run node fillout-agent.mjs authorize --challenge ORIGINAL_FILLOUT_CHALLENGE --order-id WALLET_ORDER_ID. The helper reads the official completed wallet result and joins signature + signatureRecovery correctly. Alternatively save the full official JSON result and use --signature-file wallet-signature.json. Never substitute a wallet requestId for the original FillOut challenge. The server verifies the signature and the actual SPACE ID registry owner, consumes the challenge once and returns exact contract calldata.
 6. If approval is returned, preview its operator scope separately and ask for confirmation before executing it. Preview the actual contract transaction using returned from/to/value/inputData, confirm explicitly and execute only the successful preview requestId. Do not waive the wallet risk engine or Developer Mode.
 7. Verify the receipt. Submission is not confirmation. If an authorization expires, request a fresh challenge. Never retry by increasing value or changing calldata.
 
@@ -30,7 +30,7 @@ Market supports Quote, Settle and Circuit; native ETH settlement charges 1% to t
 
 ## Launch state
 
-The server implementation is supplied, but the production creator signing secret and enable flag are not configured in this package. Mint is unscheduled. Liquidity pool/custody policy and independent review remain unclaimed. Read HANDOFF-SITES.md in the source package before publication.
+The live signing service is https://fillout-agent-signer.fillout-cloudflare-service.workers.dev. Query /api/agent/status for the authoritative current phase. Liquidity pool/custody policy and independent review remain unclaimed. Read HANDOFF-SITES.md in the source package before publication.
 
 ## V2 allocation and fees
 Team: 75 Epic + 100 Rare, backed by 2,300 Quote + 575 Settle already issued inside the 100,000 cap. Public capacity: 4,998 Common / 3,236 Rare / 1,591 Epic. Public parts: 77,700 Quote + 19,425 Settle. All paid mint ETH goes to liquidity. Market fee 1% and VRAM registered-pool fee 2% go to the new team wallet. The 2% is in VRAM and also affects liquidity transfers after pool registration; use a fee-on-transfer-compatible V2 router. No pool or factory is configured yet.

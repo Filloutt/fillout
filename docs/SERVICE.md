@@ -25,7 +25,7 @@ The contract suite has no proxy upgrade, pause, supply increase or fee-change me
 
 `POST /api/agent/challenge` accepts `{wallet,agentId,intent}` and returns an EIP-712 ownership document. `POST /api/agent/authorize` accepts `{challenge,signature}` and returns contract calldata and any separately required operator approval. It never signs a user's transaction or broadcasts one.
 
-Use official wallet preview → explicit user confirmation → execute. The CLI checks actual supported wallet networks; Robinhood support must not be assumed. Missing signer configuration returns HTTP 503. Mint remains unscheduled until a separate creator transaction opens it.
+Use official wallet preview → explicit user confirmation → execute. The CLI checks actual supported wallet networks; Robinhood support must not be assumed. Missing signer configuration returns HTTP 503. Mint was scheduled on-chain for 29 October 2026 at 11:49:25 UTC; the nominal deadline is 5 November 2026 at 11:49:25 UTC, subject to earlier sell-out. Query live status before each operation.
 
 Local service tests use ephemeral identities. Contract-flow tests use an in-process Hardhat chain, a registry ownership fixture and a price fixture; they do not claim a real customer mint, independent audit, or production signing-service validation.
 
@@ -33,3 +33,6 @@ Local service tests use ephemeral identities. Contract-flow tests use an in-proc
 100% of paid mint ETH goes to the liquidity address. Team reserve: 75 Epic + 100 Rare inside existing caps, backed by 2,300 Quote + 575 Settle. The market fee remains 1% to the new team address. VRAM fixes a 2% fee in VRAM on transfers to/from registered V2 pools, not ordinary wallet transfers or mining claims. The factory is bound once by the creator; any genuine pair returned by that fixed factory can then be registered permissionlessly. Rate and recipient cannot be changed; EOAs cannot be marked as pools. No DEX factory or pool is configured yet.
 
 Unregistered pools and other venues do not automatically pay the fee. Pool transfers also include later liquidity additions/removals; initial liquidity should be funded before registration. Use a fee-on-transfer-compatible V2 router; standard V3 routing is not supported. DEX compatibility and LP policy must be checked before opening trading.
+
+## Runtime reliability
+Robinhood and BSC use separate configured RPC secrets. Read-only mint status uses a chain-ID/code-checked JSON-RPC batch, deduplicated in-flight requests and a five-second successful-response cache. Authorization still performs fresh ownership, phase and nonce checks. The helper accepts completed official wallet results via --order-id or --signature-file and normalizes signatureRecovery; unsupported wallet agent-id commands fail with upgrade guidance.

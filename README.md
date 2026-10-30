@@ -10,7 +10,7 @@ Agent-gated Quote and Settle components on **Robinhood Chain (4663)**. Mint part
 - **Free:** one 4 Quote + 1 Settle claim per verified Agent ID and wallet; up to 4,998 successful claims, subject to stock.
 - **Additional parts:** independently selected quantities, $0.30 equivalent each, paid only in **native ETH** using expiring signed quotes.
 - Free and paid parts are identical: transfer, trade or combine them for any rarity.
-- Mint closes after **168 hours or sell-out**, whichever comes first. Assembly opens afterward.
+- Mint closes after **168 hours or sell-out**, whichever comes first. Assembly opens afterward. Public rarity slots are first come, first served; holding parts does not reserve a rarity.
 
 | Circuit | Quote | Settle | Maximum |
 |---|---:|---:|---:|
@@ -20,13 +20,13 @@ Agent-gated Quote and Settle components on **Robinhood Chain (4663)**. Mint part
 
 75 Epic + 100 Rare are reserved for the team, backed by 2,300 Quote + 575 Settle already issued inside the existing caps. Public capacity: 4,998 Common / 3,236 Rare / 1,591 Epic.
 
-**VRAM:** 1 billion fixed supply. 200 million for liquidity; 800 million for mining, split Common/Rare/Epic **80M / 240M / 480M**. Mining starts exactly 24 hours after mint closes and lasts seven days. Late assembly receives no retroactive rewards.
+**VRAM:** 1 billion fixed supply. 200 million for liquidity; 800 million for mining, split Common/Rare/Epic **80M / 240M / 480M**. Mining starts exactly 24 hours after mint closes and lasts seven days. Late assembly receives no retroactive rewards. Each NFT earns a fixed cap-based stream only from its creation until the shared mining end. Earned rewards remain claimable afterward. Unissued slots and missed accrual leave VRAM permanently in the vault; there is no administrator withdrawal or redistribution function.
 
 **Fees:** 100% of paid component mint ETH goes to the liquidity address. The Quote, Settle and Circuit market charges 1% to the team. VRAM fixes a 2% team fee on registered V2 pool transfers; ordinary wallet transfers are untaxed. DEX factory/pools are not configured yet. Sending reserves to a liquidity address does not itself create a DEX pool.
 
 ## Status
 
-Five V2 contracts are deployed and all seven setup receipts were checked. **Mint has not opened.** The agent authorization service is implemented, but its production signer is not configured. No independent audit is claimed. [Service and trust model](docs/SERVICE.md).
+Five V2 contracts are deployed and mint opened on **29 October 2026 at 11:49:25 UTC**. The configured close is **5 November 2026 at 11:49:25 UTC**, or earlier sell-out. The production agent authorization service is configured. Read [live status](https://fillout-agent-signer.fillout-cloudflare-service.workers.dev/api/agent/status) for the current phase. No independent audit is claimed. [Service and trust model](docs/SERVICE.md).
 
 ## Source
 
